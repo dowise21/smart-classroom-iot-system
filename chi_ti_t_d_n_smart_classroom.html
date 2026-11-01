@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài liệu nội bộ - Smart Classroom IoT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-link { transition: all 0.2s ease; border-left: 3px solid transparent; }
+        .sidebar-link:hover { background-color: #f1f5f9; border-left-color: #3b82f6; color: #2563eb; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-blue-200 selection:text-blue-900">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-graduation-cap text-3xl text-blue-600"></i>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Smart Classroom <span class="text-blue-600">IoT</span></h1>
+            </div>
+            <div class="text-sm text-slate-500 font-medium">
+                Tài liệu dành cho thành viên nhóm (Internal Use Only)
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sticky top-24">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Mục lục dự án</h3>
+                <nav class="flex flex-col gap-1">
+                    <a href="#tong-quan" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">1. Tổng quan hệ thống</a>
+                    <a href="#phan-cung" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">2. Sơ đồ phần cứng</a>
+                    <a href="#logic-edge" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">3. Logic Xử lý tại biên (Edge)</a>
+                    <a href="#logic-cloud" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">4. Logic Đám mây (Cloud)</a>
+                    <a href="#test-cases" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">5. Kịch bản Demo (Test Cases)</a>
+                    <a href="#cau-hoi" class="sidebar-link block px-3 py-2 text-sm font-medium text-slate-600 rounded-r-md">6. Q&A Bảo vệ đồ án</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 min-w-0 space-y-12">
+
+            <!-- 1. Tổng quan -->
+            <section id="tong-quan" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">1. Tổng quan Hệ thống</h2>
+                <p class="text-slate-600 leading-relaxed mb-4">
+                    Hệ thống giám sát và tự động hóa phòng học thông minh dựa trên vi điều khiển ESP8266. 
+                    Mục tiêu của dự án không chỉ dừng lại ở việc đọc cảm biến bật tắt đèn, mà là xây dựng một kiến trúc 
+                    <strong>chuẩn công nghiệp</strong> với khả năng xử lý lỗi (Fail-safe), chống nhiễu phần cứng, 
+                    và giao tiếp Cloud tối ưu.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg">
+                        <i class="fa-solid fa-microchip text-blue-500 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-blue-900">Edge Computing</h4>
+                        <p class="text-sm text-blue-700 mt-1">Xử lý tự động hóa, lọc nhiễu, ghi đè thủ công ngay tại mạch, không phụ thuộc mạng.</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 p-4 rounded-lg">
+                        <i class="fa-solid fa-cloud text-purple-500 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-purple-900">Cloud Webhook</h4>
+                        <p class="text-sm text-purple-700 mt-1">Đẩy dữ liệu lên Google Server để phân phối Email HTML khẩn cấp.</p>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-lg">
+                        <i class="fa-solid fa-mobile-screen-button text-emerald-500 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-emerald-900">Local Dashboard</h4>
+                        <p class="text-sm text-emerald-700 mt-1">Web Server nhúng dùng AJAX/Fetch đồng bộ thời gian thực không cần tải lại trang.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Phần cứng -->
+            <section id="phan-cung" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">2. Cấu hình Phần cứng (Pinout)</h2>
+                <div class="bg-white shadow-sm border border-slate-200 rounded-xl overflow-hidden">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-slate-700">Linh kiện</th>
+                                <th class="px-6 py-3 text-left font-semibold text-slate-700">Chân ESP8266</th>
+                                <th class="px-6 py-3 text-left font-semibold text-slate-700">Chức năng & Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-white">
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-temperature-half text-rose-500 mr-2"></i> DHT11</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">GPIO 0 (D3)</span></td>
+                                <td class="px-6 py-4 text-slate-600">Đọc Nhiệt độ & Độ ẩm. Ngưỡng bật quạt: 34°C, Ngưỡng cảnh báo: 35°C.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-fire text-orange-500 mr-2"></i> MQ135</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">A0 (Analog)</span></td>
+                                <td class="px-6 py-4 text-slate-600">Cảm biến chất lượng không khí/Gas. Ngưỡng báo động: > 500.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-person-walking text-blue-500 mr-2"></i> PIR Sensor</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">GPIO 14 (D5)</span></td>
+                                <td class="px-6 py-4 text-slate-600">Phát hiện chuyển động. Dùng kỹ thuật <code class="text-blue-600">attachInterrupt</code> để không trượt tín hiệu.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-sun text-yellow-500 mr-2"></i> LDR (Quang trở)</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">GPIO 12 (D6)</span></td>
+                                <td class="px-6 py-4 text-slate-600">Nhận biết trời tối/sáng. Mức HIGH = Tối.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-fan text-slate-500 mr-2"></i> Relay Quạt & Đèn</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">D0 & D4</span></td>
+                                <td class="px-6 py-4 text-slate-600">Đóng ngắt thiết bị 220V. Có biến cấu hình Active_High/Low trong code.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-medium text-slate-900"><i class="fa-solid fa-desktop text-indigo-500 mr-2"></i> LCD I2C 16x2</td>
+                                <td class="px-6 py-4"><span class="bg-slate-100 px-2 py-1 rounded font-mono text-xs">SDA: D2, SCL: D1</span></td>
+                                <td class="px-6 py-4 text-slate-600">Hiển thị tại chỗ. Tự động reset bộ nhớ (init lại) mỗi 20s để chống nhiễu chữ.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. Logic Tại biên -->
+            <section id="logic-edge" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">3. Phân tích Logic Cục bộ (Edge Logic)</h2>
+                
+                <div class="space-y-6">
+                    <!-- Logic 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">A. Thuật toán trễ chống nảy Rơ-le (Hysteresis)</h3>
+                        <p class="text-slate-600 mb-3 text-sm"><strong>Câu hỏi:</strong> Tại sao cài bật quạt ở 34 độ mà khi xuống 33.8 độ quạt không tắt?</p>
+                        <p class="text-slate-600 text-sm">
+                            <strong>Giải thích:</strong> Nếu thiết lập nhiệt độ bật và tắt trùng nhau (vd: cùng 34°C), khi phòng ở mức 34°C, cảm biến sẽ nhảy liên tục giữa 33.9 và 34.0. 
+                            Điều này làm rơ-le kêu tạch tạch liên hồi và làm cháy quạt. Nhóm đã code ngưỡng lệch (Hysteresis) là 0.5 độ: 
+                            <span class="text-rose-600 font-semibold">Bật ở 34.0°C</span> nhưng phải đợi giảm hẳn xuống <span class="text-emerald-600 font-semibold">33.5°C mới Tắt</span>.
+                        </p>
+                    </div>
+
+                    <!-- Logic 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">B. Ưu tiên An toàn (Emergency Override)</h3>
+                        <p class="text-slate-600 mb-3 text-sm"><strong>Câu hỏi:</strong> Điều gì xảy ra nếu người dùng cố tình tắt quạt trên Web khi đang có cháy/rò rỉ gas?</p>
+                        <p class="text-slate-600 text-sm">
+                            <strong>Giải thích:</strong> Vi điều khiển được cấu hình luật ưu tiên cao nhất cho cảm biến MQ135. Dù biến <code>fanMode</code> trên Web đang là TẮT, 
+                            khi <code>gasAlarm == true</code>, hệ thống lập tức tước quyền điều khiển của người dùng, ép bật rơ-le quạt để hút khí độc ra ngoài. Sinh mạng > Lệnh phần mềm.
+                        </p>
+                    </div>
+
+                    <!-- Logic 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">C. Chế độ Sinh tồn Ngoại tuyến (Fail-safe AP Mode)</h3>
+                        <p class="text-slate-600 text-sm">
+                            Thay vì dùng hàm <code>while(WiFi.status() != WL_CONNECTED)</code> chạy vô tận làm "chết đứng" hệ thống khi mất mạng, 
+                            code của nhóm giới hạn thời gian chờ là <strong>15 giây</strong>. Hết 15s không có mạng, ESP tự động biến thành cục phát WiFi. 
+                            Giảng viên có thể vào mạng "SmartClassroom_WiFi", truy cập IP <code>192.168.4.1</code> để tiếp tục bật tắt đèn quạt.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Logic Đám mây -->
+            <section id="logic-cloud" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">4. Phân tích Logic Đám mây (Cloud & Email)</h2>
+                <div class="bg-slate-800 rounded-xl p-6 text-slate-300">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fa-solid fa-shield-halved text-emerald-400 mr-2"></i> Thuật toán chống Spam Email (Cooldown)</h3>
+                    <p class="mb-4 text-sm leading-relaxed">
+                        Các dự án sinh viên thường bị khóa Gmail vì khi có báo động, hàm loop() chạy hàng ngàn vòng/giây sẽ bắn hàng ngàn Email lên Google.
+                        Để giải quyết, nhóm dùng thuật toán <strong>Time Cooldown (5 phút)</strong>:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-400 mb-6">
+                        <li>Khi có báo động $\rightarrow$ Gửi Mail lần 1 $\rightarrow$ Ghi nhớ mốc thời gian (<code class="text-emerald-300">lastEmailSendTime</code>).</li>
+                        <li>Dù còi kêu ầm ĩ, 5 phút tiếp theo ESP8266 <strong>TỪ CHỐI</strong> gọi Google Script.</li>
+                        <li>Nếu sau 5 phút vẫn còn cháy $\rightarrow$ Gửi mail nhắc nhở lần 2.</li>
+                        <li>Nếu đã dập tắt lửa (an toàn) $\rightarrow$ Reset thời gian về 0, sẵn sàng cho sự cố tiếp theo.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fa-solid fa-code text-blue-400 mr-2"></i> Bắt buộc chuyển hướng (HTTP Redirect)</h3>
+                    <p class="text-sm leading-relaxed">
+                        Bảo mật của Google Script bắt buộc Client phải đi theo 1 đường link thứ 2 (Redirect 302). Mạch ESP8266 phải được cấu hình lệnh: <br>
+                        <code class="bg-slate-900 text-rose-400 px-2 py-1 rounded mt-2 inline-block">http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);</code><br>
+                        Nếu không có dòng này (lỗi thường gặp của các nhóm khác), ESP8266 gõ cửa Google xong sẽ đứng im, mail không bao giờ gửi được.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 5. Test Cases -->
+            <section id="test-cases" class="scroll-mt-24">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">5. Sáu Kịch bản Trình diễn (ĐỂ LẤY ĐIỂM CAO)</h2>
+                <p class="text-slate-600 mb-6">Đây là 6 kịch bản (test case) nhóm sẽ làm trực tiếp trước mặt hội đồng. Mọi người đọc kỹ "Hiện tượng" để giải thích cho thầy cô nghe.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- TC1 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-bold mb-2">Test Case 1</span>
+                        <h4 class="font-bold text-slate-800">Cảnh báo Tiếng ồn thấp (Nhiệt độ)</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Dùng máy sấy thổi vào DHT11 lên > 35°C.</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> Quạt tự bật, Đèn LED đỏ chớp, Web báo màu đỏ, Gửi Email. <strong>Tuyệt đối không hú còi</strong> để tránh ảnh hưởng lớp học kế bên.</p>
+                    </div>
+                    <!-- TC2 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition">
+                        <span class="inline-block bg-rose-100 text-rose-800 text-xs px-2 py-1 rounded font-bold mb-2">Test Case 2</span>
+                        <h4 class="font-bold text-slate-800">Cảnh báo Khẩn cấp (Gas/Cháy)</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Xì bật lửa vào MQ135 (> 500).</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> Quạt bật, Gửi Mail. Lúc này <strong>CÒI SẼ HÚ ẦM Ĩ</strong> vì đây là sự cố đe dọa sinh mạng.</p>
+                    </div>
+                    <!-- TC3 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition">
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-bold mb-2">Test Case 3</span>
+                        <h4 class="font-bold text-slate-800">Tiết kiệm Năng lượng</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Che tối LDR và vẫy tay qua PIR.</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> Đèn tự bật. Khi bỏ tay ra, đèn sẽ sáng ráng thêm 15 giây rồi mới tắt (để sinh viên ngồi ghi bài không bị tắt đèn đột ngột).</p>
+                    </div>
+                    <!-- TC4 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition shadow-[0_0_15px_rgba(225,29,72,0.1)] border-rose-200">
+                        <span class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded font-bold mb-2">Test Case 4 (Ăn điểm)</span>
+                        <h4 class="font-bold text-slate-800">Ghi đè Khẩn cấp (Override)</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Bấm nút OFF tắt quạt trên điện thoại. Sau đó xì gas vào MQ135.</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> Mạch tự bỏ qua lệnh OFF, ÉP quạt bật quay lại ngay lập tức.</p>
+                    </div>
+                    <!-- TC5 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded font-bold mb-2">Test Case 5</span>
+                        <h4 class="font-bold text-slate-800">Chống Spam Email</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Xì gas cho còi kêu liên tục 2 phút. Mở Gmail cho thầy xem.</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> Chỉ có DUY NHẤT 1 email tới ở giây đầu tiên. Các phút sau im re để bảo vệ server.</p>
+                    </div>
+                    <!-- TC6 -->
+                    <div class="border border-slate-200 rounded-lg p-4 bg-white hover:shadow-md transition shadow-[0_0_15px_rgba(59,130,246,0.1)] border-blue-200">
+                        <span class="inline-block bg-slate-800 text-white text-xs px-2 py-1 rounded font-bold mb-2">Test Case 6 (Ăn điểm)</span>
+                        <h4 class="font-bold text-slate-800">Sinh tồn rớt mạng (Fail-safe)</h4>
+                        <p class="text-sm text-slate-600 mt-2"><strong>Làm gì:</strong> Tắt điểm phát WiFi trên điện thoại đi. Bấm nút Reset trên mạch.</p>
+                        <p class="text-sm text-slate-600 mt-1"><strong>Hiện tượng:</strong> LCD không treo. Sau 15s nó tự phát ra WiFi riêng để mình điều khiển Local.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Q&A -->
+            <section id="cau-hoi" class="scroll-mt-24 mb-20">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 border-b pb-2">6. Q&A Trả lời Phản biện</h2>
+                <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl">
+                    <p class="font-bold text-amber-900">Q: Tại sao phải có nút bấm trên Web, sao không để tự động 100%?</p>
+                    <p class="text-amber-800 mt-2 text-sm">
+                        A: "Thưa thầy, nguyên tắc thiết kế IoT là 'Human-in-the-loop' (con người là trọng tâm). Thứ nhất là để dự phòng lúc cảm biến hỏng. Thứ hai là xử lý ngoại lệ: ví dụ sinh viên đang kéo rèm xem máy chiếu (trời tối + có chuyển động), hệ thống tự động sẽ bật đèn làm lóa bảng. Nút Tắt thủ công là để xử lý các tình huống thực tế đó."
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <p>Smart Classroom IoT Project &copy; 2026. Built with ESP8266 & Google Apps Script.</p>
+    </footer>
+
+</body>
+</html>

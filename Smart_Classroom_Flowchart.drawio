@@ -1,0 +1,374 @@
+<mxfile host="Electron" agent="ChatGPT">
+  <diagram id="classroom-compact" name="Flowchart - Sensors LCD">
+    <mxGraphModel dx="2260" dy="1138" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2280" pageHeight="1280" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=20;fontStyle=1;labelBackgroundColor=none;shape=ellipse;perimeter=ellipsePerimeter;shapeInside=1;" value="Start" vertex="1">
+          <mxGeometry height="48" width="176" x="272" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="init" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Initialize sensors&lt;br&gt;and relays" vertex="1">
+          <mxGeometry height="70" width="295" x="212.5" y="127" as="geometry" />
+        </mxCell>
+        <mxCell id="pir" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Read PIR sensor" vertex="1">
+          <mxGeometry height="58" width="240" x="240" y="233" as="geometry" />
+        </mxCell>
+        <mxCell id="motion" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Update motionDetected" vertex="1">
+          <mxGeometry height="70" width="270" x="225" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="ldr" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Read LDR sensor" vertex="1">
+          <mxGeometry height="58" width="240" x="240" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="dark" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Update isDark" vertex="1">
+          <mxGeometry height="62" width="236" x="242" y="524" as="geometry" />
+        </mxCell>
+        <mxCell id="darkmotion" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="isDark AND&lt;br&gt;motionDetected?" vertex="1">
+          <mxGeometry height="130" width="228" x="246" y="623" as="geometry" />
+        </mxCell>
+        <mxCell id="light_on" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="lightOn = true" vertex="1">
+          <mxGeometry height="60" width="210" x="108" y="776" as="geometry" />
+        </mxCell>
+        <mxCell id="light_off" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="lightOn = false" vertex="1">
+          <mxGeometry height="60" width="210" x="403" y="776" as="geometry" />
+        </mxCell>
+        <mxCell id="light_join" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;strokeWidth=2;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="18" width="18" x="351" y="867" as="geometry" />
+        </mxCell>
+        <mxCell id="light_relay" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Set light relay&lt;br&gt;(ON / OFF)" vertex="1">
+          <mxGeometry height="67" width="266" x="227" y="929.5" as="geometry" />
+        </mxCell>
+        <mxCell id="gas_read" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Read MQ135 sensor" vertex="1">
+          <mxGeometry height="60" width="255" x="1022.5" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="gas_update" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Update gasAlarm" vertex="1">
+          <mxGeometry height="104" width="275" x="1012.5" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="dht_read" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Read DHT11&lt;br&gt;(Temp &amp; Humidity)" vertex="1">
+          <mxGeometry height="70" width="255" x="1022.5" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="dht_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="DHT data valid?" vertex="1">
+          <mxGeometry height="130" width="225" x="1037.5" y="448" as="geometry" />
+        </mxCell>
+        <mxCell id="dht_ok" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Update temperature, humidity &amp;amp; alarm states" vertex="1">
+          <mxGeometry height="125" width="240" x="885" y="598.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dht_error" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Set DHT error &amp;amp; clear temperature states" vertex="1">
+          <mxGeometry height="112" width="245" x="1199.5" y="605" as="geometry" />
+        </mxCell>
+        <mxCell id="dht_join" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;strokeWidth=2;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="18" width="18" x="1141" y="749" as="geometry" />
+        </mxCell>
+        <mxCell id="gas_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="gasAlarm or tempFanNeed?" vertex="1">
+          <mxGeometry height="114" width="194" x="1053" y="796" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_temp" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="fanOn = true" vertex="1">
+          <mxGeometry height="62" width="188" x="960" y="952" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_off" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="fanOn = false" vertex="1">
+          <mxGeometry height="62" width="185" x="1190" y="952" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_join" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;strokeWidth=2;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="18" width="18" x="1136" y="1066" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_relay" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Set fan relay&lt;br&gt;(ON / OFF)" vertex="1">
+          <mxGeometry height="68" width="260" x="1015" y="1127" as="geometry" />
+        </mxCell>
+        <mxCell id="alarm_calc" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="alarmActive =&lt;br&gt;gasAlarm OR tempAlarm" vertex="1">
+          <mxGeometry height="76" width="270" x="1745" y="121" as="geometry" />
+        </mxCell>
+        <mxCell id="alarm_check" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="alarmActive?" vertex="1">
+          <mxGeometry height="125" width="215" x="1772.5" y="223.5" as="geometry" />
+        </mxCell>
+        <mxCell id="led_yes" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Warning LED blinks&lt;br&gt;(300 ms interval)" vertex="1">
+          <mxGeometry height="70" width="242" x="1618" y="399" as="geometry" />
+        </mxCell>
+        <mxCell id="led_no" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Warning LED OFF" vertex="1">
+          <mxGeometry height="70" width="214" x="1937" y="399" as="geometry" />
+        </mxCell>
+        <mxCell id="led_join" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;strokeWidth=2;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="18" width="18" x="1871" y="513" as="geometry" />
+        </mxCell>
+        <mxCell id="gas_check2" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="gasAlarm?" vertex="1">
+          <mxGeometry height="118" width="206" x="1777" y="581" as="geometry" />
+        </mxCell>
+        <mxCell id="buzzer_yes" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Buzzer blinks&lt;br&gt;(300 ms interval)" vertex="1">
+          <mxGeometry height="70" width="242" x="1618" y="742" as="geometry" />
+        </mxCell>
+        <mxCell id="buzzer_no" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Buzzer OFF" vertex="1">
+          <mxGeometry height="70" width="214" x="1937" y="742" as="geometry" />
+        </mxCell>
+        <mxCell id="buzzer_join" parent="1" style="ellipse;aspect=fixed;whiteSpace=wrap;html=1;strokeWidth=2;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="18" width="18" x="1871" y="858" as="geometry" />
+        </mxCell>
+        <mxCell id="lcd_timer" parent="1" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;fontStyle=1;labelBackgroundColor=none;" value="LCD interval ≥ 2s?" vertex="1">
+          <mxGeometry height="122" width="222" x="1769" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="lcd_update" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=25;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=18;labelBackgroundColor=none;" value="Update LCD 16x2&lt;br&gt;Gas &gt; Temp &gt; Sensor data" vertex="1">
+          <mxGeometry height="80" width="255" x="1587.5" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="repeat" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=20;fontStyle=1;labelBackgroundColor=none;shape=ellipse;perimeter=ellipsePerimeter;shapeInside=1;" value="End" vertex="1">
+          <mxGeometry height="50" width="184" x="1788" y="1189" as="geometry" />
+        </mxCell>
+        <mxCell id="heading_1" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=19;fontStyle=1;labelBackgroundColor=none;" value="01  PIR + LDR / LIGHT" vertex="1">
+          <mxGeometry height="33" width="400" x="160" y="3" as="geometry" />
+        </mxCell>
+        <mxCell id="heading_2" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=19;fontStyle=1;labelBackgroundColor=none;" value="02  MQ135 + DHT11 / FAN" vertex="1">
+          <mxGeometry height="33" width="400" x="950" y="3" as="geometry" />
+        </mxCell>
+        <mxCell id="heading_3" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=19;fontStyle=1;labelBackgroundColor=none;" value="03  ALERT / LCD" vertex="1">
+          <mxGeometry height="33" width="400" x="1680" y="3" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_1" edge="1" parent="1" source="start" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="init" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_2" edge="1" parent="1" source="init" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="pir" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3" edge="1" parent="1" source="pir" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="motion" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_4" edge="1" parent="1" source="motion" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="ldr" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_5" edge="1" parent="1" source="ldr" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dark" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_6" edge="1" parent="1" source="dark" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="darkmotion" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_7" edge="1" parent="1" source="darkmotion" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="light_on" value="Yes">
+          <mxGeometry relative="1" x="-0.4545" y="-14" as="geometry">
+            <mxPoint x="14" y="-14" as="offset" />
+            <Array as="points">
+              <mxPoint x="213" y="688" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_8" edge="1" parent="1" source="darkmotion" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="light_off" value="No">
+          <mxGeometry relative="1" x="-0.4426" y="-15" as="geometry">
+            <mxPoint x="15" y="-15" as="offset" />
+            <Array as="points">
+              <mxPoint x="508" y="688" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_9" edge="1" parent="1" source="light_on" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="light_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="213" y="876" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_10" edge="1" parent="1" source="light_off" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="light_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="508" y="876" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_11" edge="1" parent="1" source="light_join" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="light_relay" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_12" edge="1" parent="1" source="light_relay" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="gas_read" value="">
+          <mxGeometry relative="1" x="-0.0011" as="geometry">
+            <Array as="points">
+              <mxPoint x="735" y="963" />
+              <mxPoint x="735" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_13" edge="1" parent="1" source="gas_read" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="gas_update" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_14" edge="1" parent="1" source="gas_update" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_read" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_15" edge="1" parent="1" source="dht_read" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_check" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_16" edge="1" parent="1" source="dht_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_ok" value="Yes">
+          <mxGeometry relative="1" x="-0.4947" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1005" y="513" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_17" edge="1" parent="1" source="dht_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_error" value="No">
+          <mxGeometry relative="1" x="-0.3059" y="13" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1322" y="513" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_18" edge="1" parent="1" source="dht_ok" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1005" y="758" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_19" edge="1" parent="1" source="dht_error" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="dht_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1322" y="758" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_20" edge="1" parent="1" source="dht_join" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="gas_check" value="">
+          <mxGeometry relative="1" x="0.087" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_21" edge="1" parent="1" source="gas_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;exitPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="fan_temp" value="Yes">
+          <mxGeometry relative="1" x="-0.227" y="-17" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="907" y="852" />
+              <mxPoint x="907" y="987" />
+            </Array>
+            <mxPoint x="907" y="955.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_24" edge="1" parent="1" source="gas_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="fan_off" value="No">
+          <mxGeometry relative="1" x="-0.1219" y="19" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1428.8" y="852" />
+              <mxPoint x="1428.8" y="983" />
+            </Array>
+            <mxPoint x="1438" y="852" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_26" edge="1" parent="1" source="fan_temp" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="fan_join" value="">
+          <mxGeometry relative="1" x="-0.1552" as="geometry">
+            <Array as="points">
+              <mxPoint x="1054" y="1075" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_27" edge="1" parent="1" source="fan_off" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;entryDx=0;entryDy=0;" target="fan_join" value="">
+          <mxGeometry relative="1" x="0.0026" as="geometry">
+            <Array as="points">
+              <mxPoint x="1277.7" y="1014" />
+              <mxPoint x="1277.7" y="1075" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_28" edge="1" parent="1" source="fan_join" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="fan_relay" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_29" edge="1" parent="1" source="fan_relay" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;entryX=0;entryY=0.5;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="alarm_calc" value="">
+          <mxGeometry relative="1" x="0.0084" as="geometry">
+            <Array as="points">
+              <mxPoint x="1575" y="1161" />
+              <mxPoint x="1575" y="159" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_30" edge="1" parent="1" source="alarm_calc" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="alarm_check" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_31" edge="1" parent="1" source="alarm_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="led_yes" value="Yes">
+          <mxGeometry relative="1" x="-0.5427" y="-11" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1739" y="286" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_32" edge="1" parent="1" source="alarm_check" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="led_no" value="No">
+          <mxGeometry relative="1" x="-0.4277" y="14" as="geometry">
+            <mxPoint x="-1" as="offset" />
+            <Array as="points">
+              <mxPoint x="2044" y="286" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_33" edge="1" parent="1" source="led_yes" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="led_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1739" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_34" edge="1" parent="1" source="led_no" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="led_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2044" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_35" edge="1" parent="1" source="led_join" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="gas_check2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_36" edge="1" parent="1" source="gas_check2" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="buzzer_yes" value="Yes">
+          <mxGeometry relative="1" x="-0.4571" y="-10" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="1739" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_37" edge="1" parent="1" source="gas_check2" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=1;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="buzzer_no" value="No">
+          <mxGeometry relative="1" x="-0.3334" y="14" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2044" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_38" edge="1" parent="1" source="buzzer_yes" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="buzzer_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1739" y="867" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_39" edge="1" parent="1" source="buzzer_no" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="buzzer_join" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2044" y="867" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_40" edge="1" parent="1" source="buzzer_join" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="lcd_timer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_41" edge="1" parent="1" source="lcd_timer" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0;exitY=0.5;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="lcd_update" value="Yes">
+          <mxGeometry relative="1" x="-0.4204" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1715" y="971" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_42" edge="1" parent="1" source="lcd_timer" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=1;exitY=0.5;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="repeat" value="No">
+          <mxGeometry relative="1" x="-0.841" y="8" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2043.9" y="971" />
+              <mxPoint x="2043.9" y="1214" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_43" edge="1" parent="1" source="lcd_update" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="repeat" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1715" y="1214" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_44" edge="1" parent="1" source="repeat" style="edgeStyle=segmentEdgeStyle;orthogonalLoop=1;rounded=0;curved=0;exitX=0.5;exitY=1;exitPerimeter=0;html=1;strokeWidth=2;endArrow=block;endFill=1;endSize=8;fontSize=16;fontColor=default;labelBackgroundColor=none;" target="pir" value="">
+          <mxGeometry relative="1" x="-0.0037" as="geometry">
+            <Array as="points">
+              <mxPoint x="1880" y="1261" />
+              <mxPoint x="28" y="1261" />
+              <mxPoint x="28" y="262" />
+            </Array>
+            <mxPoint x="487.8" y="258.4" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

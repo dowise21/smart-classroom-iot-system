@@ -1,0 +1,161 @@
+<mxfile host="Electron">
+  <diagram name="Block Diagram" id="iot1">
+    <mxGraphModel dx="1051" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;" value="SMART CLASSROOM SYSTEM" vertex="1">
+          <mxGeometry height="30" width="640" x="120" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dht" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;strokeWidth=2;" value="DHT11" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mq" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;strokeWidth=2;" value="MQ135" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="pir" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;strokeWidth=2;" value="PIR" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="ldr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;strokeWidth=2;" value="LDR" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="rK158OGUSvUrxPEGnDum-1" edge="1" parent="1" source="mcu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" target="light">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="529.95" y="190.05" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rK158OGUSvUrxPEGnDum-5" connectable="0" parent="rK158OGUSvUrxPEGnDum-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;GPIO&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2336" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mcu" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=15;verticalAlign=top;spacingTop=12;strokeWidth=2;arcSize=6;" value="NodeMCU&amp;nbsp;&lt;div&gt;ESP8266&lt;/div&gt;" vertex="1">
+          <mxGeometry height="420" width="200" x="330" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="web" parent="mcu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF9999;strokeColor=#d79b00;fontSize=12;" value="Embedded Web Server&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(monitor &amp;amp; control)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="20" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="sta" parent="mcu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;direction=south;" value="Mode 1: STA&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Station Mode)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="160" width="70" x="110" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="ap" parent="mcu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;gradientColor=#97d077;direction=south;" value="Mode 2: AP&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Access Point Mode)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="160" width="70" x="20" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="relay" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="Relay" vertex="1">
+          <mxGeometry height="44" width="160" x="640" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="fan" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="Fan" vertex="1">
+          <mxGeometry height="44" width="140" x="890" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="light" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="Light" vertex="1">
+          <mxGeometry height="44" width="160" x="640" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="led" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="LED Alarm" vertex="1">
+          <mxGeometry height="44" width="160" x="640" y="236" as="geometry" />
+        </mxCell>
+        <mxCell id="buzzer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="Buzzer" vertex="1">
+          <mxGeometry height="44" width="160" x="640" y="308" as="geometry" />
+        </mxCell>
+        <mxCell id="lcd" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCCC;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" value="LCD" vertex="1">
+          <mxGeometry height="44" width="160" x="640" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="client" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#9673a6;fontStyle=1;fontSize=13;strokeWidth=2;" value="Client Devices&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Phone / PC)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="80" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="router" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;strokeWidth=2;" value="Wi-Fi Router" vertex="1">
+          <mxGeometry height="60" width="140" x="405" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="gas" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=13;strokeWidth=2;" value="Google Apps Script&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(Cloud)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="170" x="660" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="email" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=13;strokeWidth=2;" value="Email Alert" vertex="1">
+          <mxGeometry height="60" width="150" x="890" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="dht" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.119;entryDx=0;entryDy=0;" target="mcu" value="Digital (GPIO)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="mq" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.357;entryDx=0;entryDy=0;" target="mcu" value="Analog (A0)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="pir" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.595;entryDx=0;entryDy=0;" target="mcu" value="Digital (GPIO)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="ldr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.833;entryDx=0;entryDy=0;" target="mcu" value="Digital (GPIO)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" edge="1" parent="1" source="mcu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.1;entryX=0;entryY=0.5;" target="relay" value="GPIO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;entryX=0;entryY=0.5;" target="led" value="GPIO">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="529.95" y="258.05" />
+            </Array>
+            <mxPoint x="540" y="258" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o3" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;entryX=0;entryY=0.5;" target="buzzer" value="GPIO">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="529.95" y="330.05" />
+            </Array>
+            <mxPoint x="529.95" y="330" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o4" edge="1" parent="1" source="mcu" style="rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=0.997;exitY=0.767;entryX=0;entryY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" target="lcd" value="I2C">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" edge="1" parent="1" source="relay" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="fan" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" edge="1" parent="1" source="sta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;startArrow=classic;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;dashed=1;exitX=1;exitY=0.5;entryX=0.5;entryY=0;exitDx=0;exitDy=0;" target="router" value="Mode 1 (STA)&lt;br&gt;Web view &amp;amp; control">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="475" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n2" edge="1" parent="1" source="client" style="edgeStyle=orthogonalEdgeStyle;rounded=0;startArrow=classic;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="router" value="Wi-Fi / LAN&lt;br&gt;Web view &amp;amp; control">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" edge="1" parent="1" source="router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="gas" value="Internet&lt;br&gt;(Cloud Webhook)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" edge="1" parent="1" source="gas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;strokeWidth=2;html=1;labelBackgroundColor=#ffffff;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="email" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" edge="1" parent="1" source="client" style="edgeStyle=orthogonalEdgeStyle;rounded=0;startArrow=classic;endArrow=classic;strokeWidth=3;html=1;labelBackgroundColor=#ffffff;fontSize=10;dashed=1;exitX=0.5;exitY=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontColor=#000000;" target="ap" value="Mode 2 (AP): ESP own Wi-Fi&lt;br&gt;Web view &amp;amp; control&lt;br&gt;(no Email)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="540" />
+              <mxPoint x="385" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=2;" value="STA Mode: Cloud Email requires Internet. AP Mode: Local monitoring and control available offline." vertex="1">
+          <mxGeometry height="24" width="900" x="80" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" parent="1" style="rounded=1;fillColor=#FFCCCC;strokeColor=#82b366;fontSize=10;html=1;" value="Actuators" vertex="1">
+          <mxGeometry height="22" width="90" x="260" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" parent="1" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;html=1;" value="Network" vertex="1">
+          <mxGeometry height="22" width="90" x="370" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" parent="1" style="rounded=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;html=1;" value="Cloud" vertex="1">
+          <mxGeometry height="22" width="90" x="590" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="l7" parent="1" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;html=1;gradientColor=#97d077;" value="AP mode" vertex="1">
+          <mxGeometry height="22" width="90" x="480" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="rK158OGUSvUrxPEGnDum-10" parent="1" style="rounded=1;fillColor=#DAE8F6;strokeColor=#666666;fontSize=10;html=1;" value="Sensors" vertex="1">
+          <mxGeometry height="22" width="90" x="40" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="rK158OGUSvUrxPEGnDum-11" parent="1" style="rounded=1;fillColor=#FFE6CC;strokeColor=#666666;fontSize=10;html=1;" value="Controller" vertex="1">
+          <mxGeometry height="22" width="90" x="150" y="770" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

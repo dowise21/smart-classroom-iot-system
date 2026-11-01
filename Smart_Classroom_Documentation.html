@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IOT102 - Smart Classroom System | Báo Cáo Kỹ Thuật Chuẩn IEEE/Springer</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-surface: #0b1120;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-purple: #a855f7;
+      --accent-cyan: #06b6d4;
+      --border-color: #334155;
+      --radius: 14px;
+      --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* TOP NAVIGATION */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+    }
+
+    .btn-action {
+      background: var(--accent-indigo);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.15s;
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #64748b;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HERO HEADER */
+    .hero {
+      margin: 28px 0;
+      padding: 36px;
+      border-radius: 20px;
+      background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), rgba(99, 102, 241, 0.08) 50%, var(--bg-card) 100%);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ffffff, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 900px;
+      font-size: 1.02rem;
+      margin-bottom: 22px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .stat-box .stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+    }
+
+    .stat-box .stat-lbl {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    section {
+      margin-top: 44px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .section-num {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.55rem;
+      color: var(--text-main);
+    }
+
+    .section-header span.sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+
+    /* ACADEMIC PAPER FIGURE CONTAINER (IEEE / SPRINGER STYLE) */
+    .paper-figure {
+      background: #ffffff;
+      color: #0f172a;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 28px 24px 20px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      overflow-x: auto;
+    }
+
+    .paper-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .paper-badge {
+      background: #0f172a;
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .paper-caption {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #f1f5f9;
+      font-family: 'Times New Roman', Georgia, serif;
+      font-size: 1.02rem;
+      color: #1e293b;
+      text-align: center;
+    }
+
+    .paper-caption strong {
+      font-weight: 700;
+      color: #000;
+    }
+
+    /* CARDS & GRIDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-blue);
+    }
+
+    /* TABLES */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--accent-blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-family: 'Consolas', monospace;
+    }
+
+    .b-in { background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); }
+    .b-out { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .b-i2c { background: rgba(168, 85, 247, 0.16); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+    .b-adc { background: rgba(56, 189, 248, 0.16); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .b-pwr { background: rgba(239, 68, 68, 0.16); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .b-gnd { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.4); }
+
+    .diagram-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .wiring-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .wiring-card .comp-title {
+      font-weight: 700;
+      font-size: 1.02rem;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pin-list {
+      list-style: none;
+      font-size: 0.88rem;
+    }
+
+    .pin-list li {
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pin-list li:last-child { border-bottom: none; }
+    .arrow { color: var(--accent-blue); font-weight: bold; margin: 0 6px; }
+
+    .alert {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+      border-left: 4px solid;
+      background: rgba(30, 41, 59, 0.9);
+      font-size: 0.93rem;
+    }
+    .alert-warn { border-left-color: var(--accent-amber); background: rgba(245, 158, 11, 0.08); }
+    .alert-info { border-left-color: var(--accent-blue); background: rgba(56, 189, 248, 0.08); }
+
+    /* SIMULATOR */
+    .sim-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .sim-panel, .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--bg-surface);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .toggle-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .lcd-bezel {
+      background: #1a2e1a;
+      border: 6px solid #334155;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      margin-bottom: 20px;
+    }
+
+    .lcd-screen {
+      background: #84cc16;
+      color: #0f1f04;
+      font-family: 'Courier New', Consolas, monospace;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      padding: 14px 18px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      line-height: 1.45;
+      white-space: pre;
+    }
+
+    .lcd-screen.alarm-mode {
+      background: #f59e0b;
+      color: #1e1b18;
+    }
+
+    .actuator-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .actuator-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #475569;
+      flex-shrink: 0;
+    }
+
+    .status-dot.on-green { background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+    .status-dot.on-yellow { background: #facc15; box-shadow: 0 0 12px #facc15; }
+    .status-dot.on-red { background: #ef4444; box-shadow: 0 0 14px #ef4444; }
+
+    pre.code-block {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      overflow-x: auto;
+      font-family: 'Consolas', monospace;
+      font-size: 0.84rem;
+      color: #38bdf8;
+    }
+
+    @media print {
+      .navbar, .paper-toolbar, .btn-action { display: none !important; }
+      body { background: #fff; color: #000; }
+      .paper-figure, .card, .table-wrap { box-shadow: none; border: 1px solid #94a3b8; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <span class="brand-badge">IOT102</span>
+      <span>Smart Classroom Technical Report</span>
+    </a>
+    <div class="nav-links">
+      <a href="#block-diagram">1. Block Diagram (Chuẩn Report)</a>
+      <a href="#flowchart">2. Flowchart (Chuẩn Report)</a>
+      <a href="#wiring">3. Sơ Đồ Đấu Dây</a>
+      <a href="#logic-hysteresis">4. Bảng Ngưỡng &amp; Hysteresis</a>
+      <a href="#simulator">5. Mô Phỏng &amp; Kịch Bản Demo</a>
+    </div>
+    <button class="btn-action" onclick="window.print()">🖨️ In Báo Cáo / Xuất PDF</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero">
+      <span class="hero-tag">Thiết Kế Chuẩn Bài Báo Khoa Học IEEE / Springer (ReportIOT)</span>
+      <h1>Hệ Thống Phòng Học Thông Minh (Smart Classroom IoT)</h1>
+      <p>
+        Tài liệu tổng hợp toàn diện hệ thống <strong>Smart Classroom</strong> dùng vi điều khiển <strong>NodeMCU ESP8266</strong>. Đặc biệt, phần <strong>Block Diagram</strong> và <strong>Flowchart</strong> được thiết kế lại theo đúng quy chuẩn đồ họa học thuật của bộ mẫu <code>ReportIOT</code> (Springer Fig. 54.2 &amp; Fig. 54.4; EEEE Fig. 1 &amp; Fig. 2) trên nền trắng học thuật, sẵn sàng tải ảnh PNG/SVG độ phân giải cao để chèn trực tiếp vào báo cáo Word/LaTeX.
+      </p>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-val">ESP8266-12E</div>
+          <div class="stat-lbl">Vi điều khiển trung tâm (NodeMCU)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">4 Sensors</div>
+          <div class="stat-lbl">PIR (D5), LDR (D6), DHT11 (D3), MQ135 (A0)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">5 Outputs</div>
+          <div class="stat-lbl">LCD I2C, Relay Quạt, Relay Đèn, LED, Buzzer</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">Chuẩn IEEE/Springer</div>
+          <div class="stat-lbl">Hỗ trợ tải ảnh PNG / SVG chèn vào Report</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- 1. BLOCK DIAGRAM CHUẨN REPORT IOT (SPRINGER & EEEE) -->
+    <!-- ================================================================= -->
+    <section id="block-diagram">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>Sơ Đồ Khối Hệ Thống (System Block Diagram - Chuẩn ReportIOT)</h2>
+        <span class="sub">Thiết kế theo mẫu Springer (Fig. 54.2) &amp; EEEE (Fig. 1)</span>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- MODEL A: SPRINGER STYLE (IoT_Project_Report.pdf - Fig. 54.2) -->
+      <!-- =============================================================== -->
+      <div class="paper-figure">
+        <div class="paper-toolbar">
+          <div>
+            <span class="paper-badge">Mẫu 1A: Chuẩn Springer Nature (Fig. 54.2 - IoT_Project_Report.pdf)</span>
+            <span style="font-size: 0.85rem; color: #475569; margin-left: 10px;">Phân vùng biên nét đứt, đường nối vuông góc, khối kỹ thuật đơn sắc kết hợp nhấn màu nhẹ</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-outline" onclick="downloadSvg('svgBlockSpringer', 'Smart_Classroom_Block_Diagram_Springer.svg')">⬇️ Tải file SVG</button>
+            <button class="btn-outline" onclick="downloadPng('svgBlockSpringer', 'Smart_Classroom_Block_Diagram_Springer.png', 2400, 1250)">🖼️ Tải ảnh PNG (HD cho Word)</button>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <svg id="svgBlockSpringer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 580" width="100%" style="max-width: 1080px; height: auto; background: #ffffff; font-family: Arial, Helvetica, sans-serif;">
+            <defs>
+              <marker id="arrBlk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" />
+              </marker>
+              <marker id="arrBlueAcad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0369a1" />
+              </marker>
+              <linearGradient id="mcuGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#e2e8f0" />
+                <stop offset="100%" stop-color="#cbd5e1" />
+              </linearGradient>
+              <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#f1f5f9" />
+              </linearGradient>
+            </defs>
+
+            <!-- OUTER FRAME -->
+            <rect x="10" y="10" width="1100" height="560" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+            <!-- DASHED ZONE 1: APPLICATION FIELD (SENSING & EDGE CONTROL) -->
+            <rect x="28" y="28" width="760" height="524" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="7,5"/>
+            <text x="42" y="518" fill="#0f172a" font-weight="bold" font-size="14">Application Field (Smart Classroom Edge Node)</text>
+            <text x="42" y="537" fill="#334155" font-size="12.5">Hardware Sensing, Interrupts, Hysteresis Control &amp; Local Actuation</text>
+
+            <!-- DASHED ZONE 2: MONITORING & DIAGNOSTICS / IOT EXTENSION -->
+            <rect x="808" y="28" width="284" height="524" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="7,5"/>
+            <text x="822" y="518" fill="#0f172a" font-weight="bold" font-size="14">Monitoring &amp; IoT Interface</text>
+            <text x="822" y="537" fill="#334155" font-size="12.5">Local Display, Telemetry &amp; Alerts</text>
+
+            <!-- ================= LEFT COLUMN: SENSORS (INPUTS) ================= -->
+            <!-- Sensor 1: PIR -->
+            <rect x="52" y="55" width="175" height="72" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="139" y="80" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">PIR Motion Sensor</text>
+            <text x="139" y="98" fill="#334155" font-size="11.5" text-anchor="middle">(HC-SR501)</text>
+            <text x="139" y="115" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Digital Out ➔ D5 (GPIO14)</text>
+
+            <!-- Sensor 2: LDR -->
+            <rect x="52" y="150" width="175" height="72" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="139" y="175" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">Light Sensor (LDR)</text>
+            <text x="139" y="193" fill="#334155" font-size="11.5" text-anchor="middle">(Photoresistor Module)</text>
+            <text x="139" y="210" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Digital DO ➔ D6 (GPIO12)</text>
+
+            <!-- Sensor 3: DHT11 -->
+            <rect x="52" y="245" width="175" height="72" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="139" y="270" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">Temp &amp; Humidity</text>
+            <text x="139" y="288" fill="#334155" font-size="11.5" text-anchor="middle">(DHT11 Sensor)</text>
+            <text x="139" y="305" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">1-Wire Data ➔ D3 (GPIO0)</text>
+
+            <!-- Sensor 4: MQ135 -->
+            <rect x="52" y="340" width="175" height="72" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="139" y="365" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">Air Quality / Gas</text>
+            <text x="139" y="383" fill="#334155" font-size="11.5" text-anchor="middle">(MQ-135 Sensor)</text>
+            <text x="139" y="400" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Analog AO ➔ A0 (ADC0)</text>
+
+            <!-- Power Supply Block (Bottom Left) -->
+            <rect x="52" y="432" width="175" height="58" rx="4" fill="#fef2f2" stroke="#991b1b" stroke-width="1.6"/>
+            <text x="139" y="456" fill="#7f1d1d" font-weight="bold" font-size="13" text-anchor="middle">DC Power Supply</text>
+            <text x="139" y="475" fill="#991b1b" font-size="11.5" text-anchor="middle">5V DC (VIN) &amp; 3.3V Bus</text>
+
+            <!-- ================= CENTER: MICROCONTROLLER UNIT ================= -->
+            <rect x="295" y="55" width="225" height="435" rx="6" fill="url(#mcuGrad)" stroke="#0f172a" stroke-width="2"/>
+            <text x="407" y="88" fill="#0f172a" font-weight="bold" font-size="16" text-anchor="middle">NodeMCU</text>
+            <text x="407" y="108" fill="#1e293b" font-weight="bold" font-size="14" text-anchor="middle">(ESP8266-12E)</text>
+            <text x="407" y="126" fill="#334155" font-size="11.5" text-anchor="middle">Central Processing Unit</text>
+
+            <!-- Internal Sub-modules inside NodeMCU (like Wi-Fi box in Fig. 54.2) -->
+            <rect x="315" y="145" width="185" height="48" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+            <text x="407" y="166" fill="#0f172a" font-weight="bold" font-size="12" text-anchor="middle">External Interrupt &amp; Timer</text>
+            <text x="407" y="183" fill="#475569" font-size="11" text-anchor="middle">PIR RISING ISR + 15s Hold</text>
+
+            <rect x="315" y="208" width="185" height="48" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+            <text x="407" y="229" fill="#0f172a" font-weight="bold" font-size="12" text-anchor="middle">10-bit ADC &amp; 1-Wire</text>
+            <text x="407" y="246" fill="#475569" font-size="11" text-anchor="middle">Sampling Interval: 2000 ms</text>
+
+            <rect x="315" y="271" width="185" height="54" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.3"/>
+            <text x="407" y="292" fill="#0f172a" font-weight="bold" font-size="12" text-anchor="middle">Hysteresis Control Logic</text>
+            <text x="407" y="308" fill="#475569" font-size="11" text-anchor="middle">Fan: 33.5–34.0°C | Alarm: 35°C</text>
+            <text x="407" y="321" fill="#475569" font-size="10.5" text-anchor="middle">Gas Threshold: 450–500</text>
+
+            <!-- Right-aligned interface ports inside MCU (mirrors Wi-Fi box in Fig 54.2) -->
+            <rect x="410" y="345" width="98" height="42" rx="3" fill="#ffffff" stroke="#0f172a" stroke-width="1.4"/>
+            <text x="459" y="364" fill="#0f172a" font-weight="bold" font-size="12" text-anchor="middle">I2C Bus</text>
+            <text x="459" y="379" fill="#334155" font-size="10.5" text-anchor="middle">D1/D2 (50kHz)</text>
+
+            <rect x="410" y="400" width="98" height="42" rx="3" fill="#ffffff" stroke="#0f172a" stroke-width="1.4"/>
+            <text x="459" y="419" fill="#0f172a" font-weight="bold" font-size="12" text-anchor="middle">UART / Wi-Fi</text>
+            <text x="459" y="434" fill="#334155" font-size="10.5" text-anchor="middle">115200 bps</text>
+
+            <!-- ================= MIDDLE-RIGHT: RELAYS & ACTUATORS ================= -->
+            <!-- Light Relay -->
+            <rect x="580" y="65" width="115" height="60" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="637" y="90" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Light Relay</text>
+            <text x="637" y="109" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Pin D4 (GPIO2)</text>
+
+            <!-- Classroom Lamp -->
+            <rect x="580" y="155" width="115" height="55" rx="4" fill="#fefce8" stroke="#854d0e" stroke-width="1.6"/>
+            <text x="637" y="179" fill="#713f12" font-weight="bold" font-size="13" text-anchor="middle">Study Light</text>
+            <text x="637" y="196" fill="#854d0e" font-size="11" text-anchor="middle">(Lighting Load)</text>
+
+            <!-- Fan Relay -->
+            <rect x="580" y="235" width="115" height="60" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="637" y="260" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Fan Relay</text>
+            <text x="637" y="279" fill="#0369a1" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Pin D0 (GPIO16)</text>
+
+            <!-- Cooling / Exhaust Fan -->
+            <rect x="580" y="325" width="115" height="55" rx="4" fill="#f0fdf4" stroke="#166534" stroke-width="1.6"/>
+            <text x="637" y="349" fill="#14532d" font-weight="bold" font-size="13" text-anchor="middle">Cooling Fan</text>
+            <text x="637" y="366" fill="#166534" font-size="11" text-anchor="middle">(Ventilation)</text>
+
+            <!-- Alarm Unit (Warning LED + Buzzer) -->
+            <rect x="580" y="405" width="180" height="75" rx="4" fill="#fef2f2" stroke="#991b1b" stroke-width="1.6"/>
+            <text x="670" y="428" fill="#7f1d1d" font-weight="bold" font-size="13" text-anchor="middle">Emergency Alarm Unit</text>
+            <text x="670" y="447" fill="#991b1b" font-size="11.5" text-anchor="middle">Warning LED (D7 / GPIO13)</text>
+            <text x="670" y="464" fill="#991b1b" font-size="11.5" text-anchor="middle">Piezo Buzzer (D8 / GPIO15)</text>
+
+            <!-- ================= FAR RIGHT ZONE: DISPLAY & MONITORING ================= -->
+            <!-- LCD Display -->
+            <rect x="840" y="105" width="220" height="95" rx="4" fill="url(#boxGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="950" y="132" fill="#0f172a" font-weight="bold" font-size="14" text-anchor="middle">16×2 LCD Display</text>
+            <text x="950" y="151" fill="#334155" font-size="12" text-anchor="middle">(I2C Module Address: 0x27)</text>
+            <text x="950" y="170" fill="#475569" font-size="11" text-anchor="middle">Dual-Page Status &amp; Priority</text>
+            <text x="950" y="186" fill="#475569" font-size="11" text-anchor="middle">Emergency Alert Screen</text>
+
+            <!-- Serial / Telemetry Server Cylinder-Box (like Fig 54.2 Thinkspeak Server) -->
+            <rect x="840" y="295" width="220" height="165" rx="6" fill="url(#mcuGrad)" stroke="#1e293b" stroke-width="1.6"/>
+            <text x="950" y="328" fill="#0f172a" font-weight="bold" font-size="14" text-anchor="middle">Serial Telemetry &amp;</text>
+            <text x="950" y="346" fill="#0f172a" font-weight="bold" font-size="14" text-anchor="middle">Monitoring Console</text>
+            <text x="950" y="366" fill="#334155" font-size="11.5" text-anchor="middle">(1 Hz Real-time Status Log)</text>
+            <!-- Database cylinder icon inside (exact Springer Fig 54.2 style) -->
+            <ellipse cx="950" cy="395" rx="48" ry="11" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+            <path d="M 902 395 L 902 430 A 48 11 0 0 0 998 430 L 998 395" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+            <ellipse cx="950" cy="395" rx="48" ry="11" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5"/>
+            <text x="950" y="421" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">Data Logger</text>
+
+            <!-- ================= ORTHOGONAL ARROWS ================= -->
+            <!-- Sensors to NodeMCU -->
+            <line x1="227" y1="91" x2="293" y2="91" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="227" y1="186" x2="293" y2="186" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="227" y1="281" x2="293" y2="281" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="227" y1="376" x2="293" y2="376" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="227" y1="461" x2="293" y2="461" stroke="#991b1b" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrBlk)"/>
+
+            <!-- NodeMCU to Light Relay & Study Light -->
+            <line x1="520" y1="95" x2="578" y2="95" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="637" y1="125" x2="637" y2="153" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+
+            <!-- NodeMCU to Fan Relay & Cooling Fan -->
+            <line x1="520" y1="265" x2="578" y2="265" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+            <line x1="637" y1="295" x2="637" y2="323" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+
+            <!-- NodeMCU to Alarm Unit -->
+            <path d="M 520 315 L 550 315 L 550 442 L 578 442" fill="none" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+
+            <!-- NodeMCU I2C to LCD Display -->
+            <path d="M 508 366 L 745 366 L 745 152 L 838 152" fill="none" stroke="#0369a1" stroke-width="2" marker-end="url(#arrBlueAcad)"/>
+            <text x="752" y="255" fill="#0369a1" font-size="11" font-weight="bold" transform="rotate(-90 752 255)">I2C (SDA/SCL)</text>
+
+            <!-- NodeMCU UART to Serial / Telemetry -->
+            <path d="M 508 421 L 765 421 L 765 385 L 838 385" fill="none" stroke="#1e293b" stroke-width="1.8" marker-end="url(#arrBlk)"/>
+          </svg>
+        </div>
+
+        <div class="paper-caption">
+          <strong>Fig. 1.</strong> Block diagram of the developed Smart Classroom automation and safety monitoring system (Springer style).
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- MODEL B: EEEE 3-COLUMN INPUT | CONTROL | OUTPUT (LoRaWAN Paper) -->
+      <!-- =============================================================== -->
+      <div class="paper-figure">
+        <div class="paper-toolbar">
+          <div>
+            <span class="paper-badge" style="background:#0369a1;">Mẫu 1B: Chuẩn Tạp Chí EEEE (Fig. 1 - Input | Control | Output)</span>
+            <span style="font-size: 0.85rem; color: #475569; margin-left: 10px;">Bố cục 3 cột kinh điển phân tách bằng đường đứt nét dọc: Khối Đầu Vào | Khối Điều Khiển | Khối Đầu Ra</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-outline" onclick="downloadSvg('svgBlockEEEE', 'Smart_Classroom_Block_Diagram_Input_Control_Output.svg')">⬇️ Tải file SVG</button>
+            <button class="btn-outline" onclick="downloadPng('svgBlockEEEE', 'Smart_Classroom_Block_Diagram_Input_Control_Output.png', 2400, 1200)">🖼️ Tải ảnh PNG (HD cho Word)</button>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <svg id="svgBlockEEEE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 530" width="100%" style="max-width: 1040px; height: auto; background: #ffffff; font-family: 'Times New Roman', Georgia, serif;">
+            <defs>
+              <marker id="arrE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
+              </marker>
+            </defs>
+
+            <!-- Column Headers (exact EEEE Fig. 1 style) -->
+            <text x="220" y="36" fill="#000" font-weight="bold" font-size="19" text-anchor="middle">Input</text>
+            <text x="540" y="36" fill="#000" font-weight="bold" font-size="19" text-anchor="middle">Control</text>
+            <text x="860" y="36" fill="#000" font-weight="bold" font-size="19" text-anchor="middle">Output</text>
+
+            <!-- Vertical Dashed Separators -->
+            <line x1="410" y1="20" x2="410" y2="505" stroke="#000" stroke-width="2" stroke-dasharray="8,6"/>
+            <line x1="670" y1="20" x2="670" y2="505" stroke="#000" stroke-width="2" stroke-dasharray="8,6"/>
+
+            <!-- Power Supply on Left feeding Input Bus -->
+            <rect x="25" y="210" width="130" height="88" rx="6" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+            <text x="90" y="242" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">5V DC / 3.3V</text>
+            <text x="90" y="262" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">Power Supply</text>
+            <text x="90" y="282" fill="#334155" font-size="12" text-anchor="middle">(USB / Adapter)</text>
+
+            <!-- Input Bus Spine -->
+            <line x1="155" y1="254" x2="185" y2="254" stroke="#000" stroke-width="2"/>
+            <line x1="185" y1="95" x2="185" y2="435" stroke="#000" stroke-width="2"/>
+            <line x1="185" y1="95" x2="215" y2="95" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="185" y1="205" x2="215" y2="205" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="185" y1="315" x2="215" y2="315" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="185" y1="435" x2="215" y2="435" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+
+            <!-- 4 Sensor Cards in Input Column -->
+            <g transform="translate(220, 58)">
+              <rect width="160" height="74" rx="6" fill="#f8fafc" stroke="#1e293b" stroke-width="1.6"/>
+              <circle cx="34" cy="37" r="20" fill="#dcfce7" stroke="#166534" stroke-width="1.5"/>
+              <text x="34" y="42" fill="#166534" font-weight="bold" font-size="12" text-anchor="middle">PIR</text>
+              <text x="105" y="33" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">PIR Sensor</text>
+              <text x="105" y="52" fill="#334155" font-size="12" text-anchor="middle">Pin D5 (GPIO14)</text>
+            </g>
+
+            <g transform="translate(220, 168)">
+              <rect width="160" height="74" rx="6" fill="#f8fafc" stroke="#1e293b" stroke-width="1.6"/>
+              <circle cx="34" cy="37" r="20" fill="#fef9c3" stroke="#854d0e" stroke-width="1.5"/>
+              <text x="34" y="42" fill="#854d0e" font-weight="bold" font-size="12" text-anchor="middle">LDR</text>
+              <text x="105" y="33" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">LDR Sensor</text>
+              <text x="105" y="52" fill="#334155" font-size="12" text-anchor="middle">Pin D6 (GPIO12)</text>
+            </g>
+
+            <g transform="translate(220, 278)">
+              <rect width="160" height="74" rx="6" fill="#f8fafc" stroke="#1e293b" stroke-width="1.6"/>
+              <circle cx="34" cy="37" r="20" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"/>
+              <text x="34" y="42" fill="#0369a1" font-weight="bold" font-size="11" text-anchor="middle">DHT</text>
+              <text x="105" y="33" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">DHT11 Sensor</text>
+              <text x="105" y="52" fill="#334155" font-size="12" text-anchor="middle">Pin D3 (GPIO0)</text>
+            </g>
+
+            <g transform="translate(220, 398)">
+              <rect width="160" height="74" rx="6" fill="#f8fafc" stroke="#1e293b" stroke-width="1.6"/>
+              <circle cx="34" cy="37" r="20" fill="#fee2e2" stroke="#991b1b" stroke-width="1.5"/>
+              <text x="34" y="42" fill="#991b1b" font-weight="bold" font-size="11" text-anchor="middle">GAS</text>
+              <text x="105" y="33" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">MQ135 Sensor</text>
+              <text x="105" y="52" fill="#334155" font-size="12" text-anchor="middle">Pin A0 (ADC0)</text>
+            </g>
+
+            <!-- Collector arrow from Input to Control -->
+            <line x1="380" y1="265" x2="445" y2="265" stroke="#000" stroke-width="2.2" marker-end="url(#arrE)"/>
+
+            <!-- Control Column: NodeMCU ESP8266 -->
+            <g transform="translate(450, 185)">
+              <rect width="180" height="160" rx="8" fill="#f1f5f9" stroke="#0f172a" stroke-width="2.2"/>
+              <rect x="45" y="18" width="90" height="62" rx="4" fill="#1e293b" stroke="#0f172a"/>
+              <text x="90" y="46" fill="#ffffff" font-family="Arial" font-weight="bold" font-size="13" text-anchor="middle">ESP8266</text>
+              <text x="90" y="64" fill="#38bdf8" font-family="monospace" font-size="10.5" text-anchor="middle">NodeMCU 12E</text>
+              <text x="90" y="106" fill="#000" font-weight="bold" font-size="15.5" text-anchor="middle">NodeMCU ESP8266</text>
+              <text x="90" y="126" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">Controller Unit</text>
+              <text x="90" y="146" fill="#334155" font-size="12" text-anchor="middle">(Edge Logic &amp; Timers)</text>
+            </g>
+
+            <!-- Output Distributor Spine -->
+            <line x1="630" y1="265" x2="700" y2="265" stroke="#000" stroke-width="2.2"/>
+            <line x1="700" y1="90" x2="700" y2="445" stroke="#000" stroke-width="2"/>
+            <line x1="700" y1="90" x2="738" y2="90" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="700" y1="180" x2="738" y2="180" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="700" y1="270" x2="738" y2="270" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="700" y1="360" x2="738" y2="360" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+            <line x1="700" y1="445" x2="738" y2="445" stroke="#000" stroke-width="2" marker-end="url(#arrE)"/>
+
+            <!-- 5 Output Cards in Output Column -->
+            <g transform="translate(745, 58)">
+              <rect width="290" height="64" rx="6" fill="#f0fdf4" stroke="#166534" stroke-width="1.6"/>
+              <text x="145" y="28" fill="#000" font-weight="bold" font-size="14.5" text-anchor="middle">16×2 I2C LCD Display (0x27)</text>
+              <text x="145" y="48" fill="#334155" font-size="12.5" text-anchor="middle">Pins: SDA (D2), SCL (D1) — 2-Page &amp; Alerts</text>
+            </g>
+
+            <g transform="translate(745, 148)">
+              <rect width="290" height="64" rx="6" fill="#fefce8" stroke="#854d0e" stroke-width="1.6"/>
+              <text x="145" y="28" fill="#000" font-weight="bold" font-size="14.5" text-anchor="middle">Relay 2 ➔ Classroom Study Light</text>
+              <text x="145" y="48" fill="#334155" font-size="12.5" text-anchor="middle">Pin D4 (GPIO2) — Auto ON (Dark &amp; Motion)</text>
+            </g>
+
+            <g transform="translate(745, 238)">
+              <rect width="290" height="64" rx="6" fill="#f0f9ff" stroke="#0369a1" stroke-width="1.6"/>
+              <text x="145" y="28" fill="#000" font-weight="bold" font-size="14.5" text-anchor="middle">Relay 1 ➔ Cooling / Exhaust Fan</text>
+              <text x="145" y="48" fill="#334155" font-size="12.5" text-anchor="middle">Pin D0 (GPIO16) — ON when Hot or Gas Leak</text>
+            </g>
+
+            <g transform="translate(745, 328)">
+              <rect width="290" height="64" rx="6" fill="#fef2f2" stroke="#991b1b" stroke-width="1.6"/>
+              <text x="145" y="28" fill="#000" font-weight="bold" font-size="14.5" text-anchor="middle">Warning LED &amp; Alarm Buzzer</text>
+              <text x="145" y="48" fill="#334155" font-size="12.5" text-anchor="middle">Pins D7 (LED) &amp; D8 (Buzzer) — 300ms Blink</text>
+            </g>
+
+            <g transform="translate(745, 415)">
+              <rect width="290" height="60" rx="6" fill="#f8fafc" stroke="#334155" stroke-width="1.6"/>
+              <text x="145" y="26" fill="#000" font-weight="bold" font-size="14.5" text-anchor="middle">Serial Monitor Telemetry (115200)</text>
+              <text x="145" y="45" fill="#334155" font-size="12.5" text-anchor="middle">Real-time System Log (Every 1000 ms)</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="paper-caption">
+          <strong>Fig. 2.</strong> Input–Control–Output block diagram of the Smart Classroom system (EEEE journal style).
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 2. FLOWCHART CHUẨN REPORT IOT (SPRINGER FIG. 54.4 & EEEE FIG. 2) -->
+    <!-- ================================================================= -->
+    <section id="flowchart">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>Lưu Đồ Thuật Toán (Programming Flowchart - Chuẩn ReportIOT)</h2>
+        <span class="sub">Thiết kế theo mẫu Springer (Fig. 54.4) &amp; EEEE (Fig. 2)</span>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- FLOWCHART A: SPRINGER STYLE (Fig. 54.4 - Side Input Parallelograms) -->
+      <!-- =============================================================== -->
+      <div class="paper-figure">
+        <div class="paper-toolbar">
+          <div>
+            <span class="paper-badge">Mẫu 2A: Chuẩn Springer Nature (Fig. 54.4 - IoT_Project_Report.pdf)</span>
+            <span style="font-size: 0.85rem; color: #475569; margin-left: 10px;">Trục chính ở giữa, khối dữ liệu cảm biến hình bình hành ghép từ 2 bên trái/phải, khối rẽ nhánh hình thoi</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-outline" onclick="downloadSvg('svgFlowSpringer', 'Smart_Classroom_Flowchart_Springer.svg')">⬇️ Tải file SVG</button>
+            <button class="btn-outline" onclick="downloadPng('svgFlowSpringer', 'Smart_Classroom_Flowchart_Springer.png', 2200, 2600)">🖼️ Tải ảnh PNG (HD cho Word)</button>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <svg id="svgFlowSpringer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 1120" width="100%" style="max-width: 920px; height: auto; background: #ffffff; font-family: Arial, Helvetica, sans-serif;">
+            <defs>
+              <marker id="fcArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#334155" />
+              </marker>
+              <linearGradient id="fcBox" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f8fafc" />
+                <stop offset="100%" stop-color="#e2e8f0" />
+              </linearGradient>
+              <linearGradient id="fcTerm" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f1f5f9" />
+                <stop offset="100%" stop-color="#cbd5e1" />
+              </linearGradient>
+            </defs>
+
+            <!-- 1. START (Oval/Stadium) -->
+            <ellipse cx="490" cy="42" rx="95" ry="24" fill="url(#fcTerm)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="47" fill="#0f172a" font-weight="bold" font-size="14" text-anchor="middle">Start</text>
+            <line x1="490" y1="66" x2="490" y2="92" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 2. INITIALIZE SYSTEM -->
+            <rect x="345" y="94" width="290" height="54" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="117" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">Initialize the system</text>
+            <text x="490" y="136" fill="#475569" font-size="11.5" text-anchor="middle">(GPIO, PIR Interrupt, I2C 50kHz, LCD, 1s Test)</text>
+            <line x1="490" y1="148" x2="490" y2="174" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 3. ACTIVATE ALL SENSOR SYSTEMS -->
+            <rect x="345" y="176" width="290" height="48" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="197" fill="#0f172a" font-weight="bold" font-size="13.5" text-anchor="middle">Activate all sensor systems</text>
+            <text x="490" y="214" fill="#475569" font-size="11.5" text-anchor="middle">(PIR, LDR, DHT11, MQ-135 &amp; Timers)</text>
+            <line x1="490" y1="224" x2="490" y2="254" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 4. STAGE 1: LIGHTING DATA & PROCESS (With Left & Right Parallelograms like Fig 54.4) -->
+            <!-- Left Parallelogram: PIR Motion Sensor Data -->
+            <polygon points="95,256 295,256 275,308 75,308" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="185" y="279" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">PIR Motion Data</text>
+            <text x="185" y="296" fill="#475569" font-size="11" text-anchor="middle">(ISR + 15s Hold Timer)</text>
+            <line x1="285" y1="282" x2="353" y2="282" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- Center Rectangle: Process Occupancy & Light Data -->
+            <rect x="355" y="256" width="270" height="52" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="279" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Process occupancy &amp;</text>
+            <text x="490" y="296" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">ambient light data</text>
+
+            <!-- Right Parallelogram: LDR Sensor Data -->
+            <polygon points="705,256 905,256 885,308 685,308" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="795" y="279" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">LDR Sensor Data</text>
+            <text x="795" y="296" fill="#475569" font-size="11" text-anchor="middle">(Digital DO: Dark = HIGH)</text>
+            <line x1="695" y1="282" x2="627" y2="282" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <line x1="490" y1="308" x2="490" y2="338" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 5. DECISION 1: Is room Dark AND Motion Detected? -->
+            <polygon points="490,340 655,382 490,424 325,382" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="378" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">Is room Dark (LDR=1)</text>
+            <text x="490" y="395" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">&amp; Motion Detected?</text>
+
+            <!-- Branch NO (Left): Turn Study Light OFF -->
+            <text x="295" y="374" fill="#0f172a" font-weight="bold" font-size="12.5">No</text>
+            <path d="M 325 382 L 195 382 L 195 438" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="105" y="440" width="180" height="46" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="195" y="468" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Turn Study Light OFF</text>
+
+            <!-- Branch YES (Right): Turn Study Light ON -->
+            <text x="668" y="374" fill="#0f172a" font-weight="bold" font-size="12.5">Yes</text>
+            <path d="M 655 382 L 785 382 L 785 438" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="695" y="440" width="180" height="46" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="785" y="468" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Turn Study Light ON</text>
+
+            <!-- Merge back to Center: Process Environmental Sensor Data -->
+            <path d="M 195 486 L 195 512 L 490 512 L 490 536" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <path d="M 785 486 L 785 512 L 490 512" fill="none" stroke="#334155" stroke-width="2"/>
+
+            <!-- 6. STAGE 2: ENVIRONMENTAL DATA (DHT11 & MQ135 Parallelograms feeding Center) -->
+            <!-- Left Parallelogram: DHT11 Data -->
+            <polygon points="95,538 295,538 275,590 75,590" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="185" y="561" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">DHT11 Sensor Data</text>
+            <text x="185" y="578" fill="#475569" font-size="11" text-anchor="middle">(Temp °C &amp; Humidity %)</text>
+            <line x1="285" y1="564" x2="353" y2="564" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- Center Rectangle: Process the sensor data (Every 2s) -->
+            <rect x="355" y="538" width="270" height="52" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="561" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Process environmental</text>
+            <text x="490" y="578" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">sensor data (2s cycle)</text>
+
+            <!-- Right Parallelogram: MQ135 Data -->
+            <polygon points="705,538 905,538 885,590 685,590" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="795" y="561" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">MQ-135 Gas Data</text>
+            <text x="795" y="578" fill="#475569" font-size="11" text-anchor="middle">(Analog AO: 0 – 1023)</text>
+            <line x1="695" y1="564" x2="627" y2="564" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <line x1="490" y1="590" x2="490" y2="620" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 7. DECISION 2: Is Temp >= 34°C OR Gas >= 500? (Fan Control) -->
+            <polygon points="490,622 665,664 490,706 315,664" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="660" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">Is Temp &ge; 34.0°C</text>
+            <text x="490" y="677" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">OR Gas &ge; 500?</text>
+
+            <!-- Fan OFF (Left) -->
+            <text x="285" y="656" fill="#0f172a" font-weight="bold" font-size="12.5">No</text>
+            <path d="M 315 664 L 195 664 L 195 716" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="105" y="718" width="180" height="46" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="195" y="740" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Turn the Fan OFF</text>
+            <text x="195" y="756" fill="#475569" font-size="10.5" text-anchor="middle">(when Temp &le; 33.5°C &amp; Gas &le; 450)</text>
+
+            <!-- Fan ON (Right) -->
+            <text x="678" y="656" fill="#0f172a" font-weight="bold" font-size="12.5">Yes</text>
+            <path d="M 665 664 L 785 664 L 785 716" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="695" y="718" width="180" height="46" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="785" y="746" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Turn the Fan ON</text>
+
+            <!-- Merge to Decision 3 (Alarm Check) -->
+            <path d="M 195 764 L 195 788 L 490 788 L 490 812" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <path d="M 785 764 L 785 788 L 490 788" fill="none" stroke="#334155" stroke-width="2"/>
+
+            <!-- 8. DECISION 3: Is Gas >= 500 OR Temp >= 35.0°C? (Alarm & LCD Priority) -->
+            <polygon points="490,814 665,856 490,898 315,856" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="852" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">Is Temp &ge; 35.0°C</text>
+            <text x="490" y="869" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">OR Gas &ge; 500?</text>
+
+            <!-- Alarm OFF (Left) -->
+            <text x="285" y="848" fill="#0f172a" font-weight="bold" font-size="12.5">No</text>
+            <path d="M 315 856 L 195 856 L 195 904" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="95" y="906" width="200" height="50" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="195" y="928" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">Turn Buzzer &amp; LED OFF</text>
+            <text x="195" y="945" fill="#475569" font-size="11" text-anchor="middle">Display Page 0 / Page 1 on LCD</text>
+
+            <!-- Alarm ON (Right) -->
+            <text x="678" y="848" fill="#0f172a" font-weight="bold" font-size="12.5">Yes</text>
+            <path d="M 665 856 L 785 856 L 785 904" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <rect x="685" y="906" width="200" height="50" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="785" y="928" fill="#0f172a" font-weight="bold" font-size="12.5" text-anchor="middle">Blink Buzzer &amp; LED (300ms)</text>
+            <text x="785" y="945" fill="#475569" font-size="11" text-anchor="middle">Display Emergency Alert on LCD</text>
+
+            <!-- Merge to Serial Output -->
+            <path d="M 195 956 L 195 978 L 490 978 L 490 998" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+            <path d="M 785 956 L 785 978 L 490 978" fill="none" stroke="#334155" stroke-width="2"/>
+
+            <!-- 9. SEND DATA TO SERIAL / TELEMETRY -->
+            <rect x="345" y="1000" width="290" height="46" rx="6" fill="url(#fcBox)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="1021" fill="#0f172a" font-weight="bold" font-size="13" text-anchor="middle">Send status log to Serial Monitor</text>
+            <text x="490" y="1038" fill="#475569" font-size="11" text-anchor="middle">(1s interval &amp; Auto Re-init LCD every 20s)</text>
+
+            <line x1="490" y1="1046" x2="490" y2="1068" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+
+            <!-- 10. END + Continuous Loop Back Line (exact Fig 54.4 style) -->
+            <ellipse cx="490" cy="1092" rx="95" ry="22" fill="url(#fcTerm)" stroke="#334155" stroke-width="2"/>
+            <text x="490" y="1097" fill="#0f172a" font-weight="bold" font-size="14" text-anchor="middle">End</text>
+
+            <!-- Loop-back line from bottom back to top of loop (like Fig 54.4 left return line) -->
+            <path d="M 395 1092 L 42 1092 L 42 200 L 343 200" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#fcArr)"/>
+          </svg>
+        </div>
+
+        <div class="paper-caption">
+          <strong>Fig. 3.</strong> Programming flowchart of the developed Smart Classroom system (Springer Fig. 54.4 style).
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- FLOWCHART B: EEEE 2-COLUMN CONNECTOR (A) STYLE (Fig. 2) -->
+      <!-- =============================================================== -->
+      <div class="paper-figure">
+        <div class="paper-toolbar">
+          <div>
+            <span class="paper-badge" style="background:#0369a1;">Mẫu 2B: Chuẩn Tạp Chí EEEE 2 Cột Nối Điểm (A) (Fig. 2 - LoRaWAN Paper)</span>
+            <span style="font-size: 0.85rem; color: #475569; margin-left: 10px;">Chia lưu đồ thành 2 cột song song nối qua điểm tròn (A), rất gọn khi chèn vào báo cáo 2 cột IEEE</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-outline" onclick="downloadSvg('svgFlowEEEE', 'Smart_Classroom_Flowchart_2Column_IEEE.svg')">⬇️ Tải file SVG</button>
+            <button class="btn-outline" onclick="downloadPng('svgFlowEEEE', 'Smart_Classroom_Flowchart_2Column_IEEE.png', 2200, 1500)">🖼️ Tải ảnh PNG (HD cho Word)</button>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <svg id="svgFlowEEEE" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" style="max-width: 960px; height: auto; background: #ffffff; font-family: 'Times New Roman', Georgia, serif;">
+            <defs>
+              <marker id="arrF2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#000000" />
+              </marker>
+            </defs>
+
+            <!-- ================= COLUMN 1 (LEFT): SENSING & ACTUATION ================= -->
+            <!-- START -->
+            <ellipse cx="260" cy="40" rx="85" ry="22" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="45" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">START</text>
+            <line x1="260" y1="62" x2="260" y2="88" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 1 -->
+            <rect x="135" y="90" width="250" height="52" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="112" fill="#000" font-size="13.5" text-anchor="middle">Provide power &amp; initialize GPIO,</text>
+            <text x="260" y="130" fill="#000" font-size="13.5" text-anchor="middle">PIR Interrupt, I2C (50kHz) &amp; LCD</text>
+            <line x1="260" y1="142" x2="260" y2="168" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 2 -->
+            <rect x="135" y="170" width="250" height="52" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="192" fill="#000" font-size="13.5" text-anchor="middle">Sensors detect motion (PIR),</text>
+            <text x="260" y="210" fill="#000" font-size="13.5" text-anchor="middle">light (LDR), Temp/Hum &amp; Gas</text>
+            <line x1="260" y1="222" x2="260" y2="248" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 3 -->
+            <rect x="135" y="250" width="250" height="54" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="272" fill="#000" font-size="13.5" text-anchor="middle">NodeMCU ESP8266 processes</text>
+            <text x="260" y="290" fill="#000" font-size="13.5" text-anchor="middle">PIR 15s hold &amp; LDR logic</text>
+            <line x1="260" y1="304" x2="260" y2="330" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 4 -->
+            <rect x="135" y="332" width="250" height="54" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="354" fill="#000" font-size="13.5" text-anchor="middle">Control Study Light Relay (D4)</text>
+            <text x="260" y="372" fill="#000" font-size="13.5" text-anchor="middle">(ON if Dark AND Motion)</text>
+            <line x1="260" y1="386" x2="260" y2="412" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 5 -->
+            <rect x="135" y="414" width="250" height="56" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="436" fill="#000" font-size="13.5" text-anchor="middle">Evaluate Hysteresis thresholds</text>
+            <text x="260" y="454" fill="#000" font-size="13.5" text-anchor="middle">&amp; control Fan Relay (D0)</text>
+            <line x1="260" y1="470" x2="260" y2="496" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 6 -->
+            <rect x="135" y="498" width="250" height="54" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="520" fill="#000" font-size="13.5" text-anchor="middle">Format telemetry &amp; send 1s log</text>
+            <text x="260" y="538" fill="#000" font-size="13.5" text-anchor="middle">to Serial Monitor (115200 bps)</text>
+            <line x1="260" y1="552" x2="260" y2="582" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Connector A (Bottom of Column 1) -->
+            <circle cx="260" cy="610" r="24" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="260" y="616" fill="#000" font-weight="bold" font-size="16" text-anchor="middle">A</text>
+
+            <!-- ================= COLUMN 2 (RIGHT): DISPLAY & ALARM HANDLING ================= -->
+            <!-- Connector A (Top of Column 2) -->
+            <circle cx="720" cy="55" r="24" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="61" fill="#000" font-weight="bold" font-size="16" text-anchor="middle">A</text>
+            <line x1="720" y1="79" x2="720" y2="112" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 7 -->
+            <rect x="595" y="114" width="250" height="54" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="136" fill="#000" font-size="13.5" text-anchor="middle">Periodic LCD I2C refresh check</text>
+            <text x="720" y="154" fill="#000" font-size="13.5" text-anchor="middle">(Auto lcd.init() every 10 cycles)</text>
+            <line x1="720" y1="168" x2="720" y2="205" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 8 -->
+            <rect x="595" y="207" width="250" height="56" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="229" fill="#000" font-size="13.5" text-anchor="middle">Data displayed on 16×2 LCD</text>
+            <text x="720" y="247" fill="#000" font-size="13.5" text-anchor="middle">(Alternating Page 0 &amp; Page 1)</text>
+            <line x1="720" y1="263" x2="720" y2="305" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Decision Diamond: Parameter > Alarm Threshold? (exact EEEE Fig. 2 style) -->
+            <polygon points="720,307 835,367 720,427 605,367" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="352" fill="#000" font-size="13" text-anchor="middle">Temp &ge; 35.0°C</text>
+            <text x="720" y="370" fill="#000" font-size="13" text-anchor="middle">OR</text>
+            <text x="720" y="388" fill="#000" font-size="13" text-anchor="middle">MQ135 &ge; 500?</text>
+
+            <!-- NO Loop-back to before LCD display (exact EEEE Fig. 2 left loop) -->
+            <text x="572" y="360" fill="#000" font-weight="bold" font-size="13">NO</text>
+            <path d="M 605 367 L 535 367 L 535 188 L 718 188" fill="none" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- YES Downward to Alarm Box -->
+            <text x="752" y="448" fill="#000" font-weight="bold" font-size="13">YES</text>
+            <line x1="720" y1="427" x2="720" y2="468" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- Step 9: Generate Alarm -->
+            <rect x="595" y="470" width="250" height="68" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="492" fill="#000" font-size="13.5" text-anchor="middle">Generate emergency alarm:</text>
+            <text x="720" y="510" fill="#000" font-size="13" text-anchor="middle">Force Fan ON, blink LED &amp; Buzzer</text>
+            <text x="720" y="528" fill="#000" font-size="13" text-anchor="middle">(300ms) &amp; show Alert on LCD</text>
+            <line x1="720" y1="538" x2="720" y2="578" stroke="#000" stroke-width="1.6" marker-end="url(#arrF2)"/>
+
+            <!-- END -->
+            <ellipse cx="720" cy="602" rx="85" ry="22" fill="#ffffff" stroke="#000" stroke-width="1.6"/>
+            <text x="720" y="607" fill="#000" font-weight="bold" font-size="14" text-anchor="middle">END</text>
+          </svg>
+        </div>
+
+        <div class="paper-caption">
+          <strong>Fig. 4.</strong> Flowchart of the Smart Classroom monitoring and alert system using on-page connector (EEEE journal style).
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 3. HƯỚNG DẪN SƠ ĐỒ ĐẤU DÂY (WIRING DIAGRAM) -->
+    <!-- ================================================================= -->
+    <section id="wiring">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>Hướng Dẫn Sơ Đồ Đấu Dây Chi Tiết (Hardware Interfacing &amp; Pinout)</h2>
+        <span class="sub">Chuẩn chân NodeMCU ESP8266 (ESP-12E)</span>
+      </div>
+
+      <!-- VISUAL SVG WIRING DIAGRAM -->
+      <div class="diagram-box">
+        <h3 style="color: var(--accent-blue); margin-bottom: 14px;">Sơ Đồ Đấu Nối Phần Cứng Trực Quan Với NodeMCU ESP8266</h3>
+        <svg viewBox="0 0 1150 660" width="100%" style="max-width: 1120px; height: auto; background: #070b14; border-radius: 12px; border: 1px solid #1e293b;">
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- Left Sensors -->
+          <g transform="translate(35, 45)">
+            <rect width="230" height="105" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+            <text x="16" y="28" fill="#38bdf8" font-weight="bold" font-size="15">1. Cảm biến Khí MQ135</text>
+            <text x="16" y="52" fill="#94a3b8" font-size="12">Ngõ ra Analog (0 - 1023)</text>
+            <text x="16" y="75" fill="#f87171" font-family="monospace" font-size="12">VCC: 5V (VIN) | GND: GND</text>
+            <circle cx="215" cy="85" r="6" fill="#38bdf8"/>
+            <text x="145" y="90" fill="#38bdf8" font-family="monospace" font-weight="bold" font-size="13">AO ➔ A0</text>
+          </g>
+
+          <g transform="translate(35, 180)">
+            <rect width="230" height="105" rx="10" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+            <text x="16" y="28" fill="#4ade80" font-weight="bold" font-size="15">2. Cảm biến PIR HC-SR501</text>
+            <text x="16" y="52" fill="#94a3b8" font-size="12">Phát hiện người (Interrupt RISING)</text>
+            <text x="16" y="75" fill="#f87171" font-family="monospace" font-size="12">VCC: 5V (VIN) | GND: GND</text>
+            <circle cx="215" cy="85" r="6" fill="#22c55e"/>
+            <text x="125" y="90" fill="#4ade80" font-family="monospace" font-weight="bold" font-size="13">OUT ➔ D5 (14)</text>
+          </g>
+
+          <g transform="translate(35, 315)">
+            <rect width="230" height="105" rx="10" fill="#1e293b" stroke="#eab308" stroke-width="2"/>
+            <text x="16" y="28" fill="#facc15" font-weight="bold" font-size="15">3. Cảm biến Ánh sáng LDR</text>
+            <text x="16" y="52" fill="#94a3b8" font-size="12">Trời tối: DO = HIGH (1)</text>
+            <text x="16" y="75" fill="#f87171" font-family="monospace" font-size="12">VCC: 3.3V     | GND: GND</text>
+            <circle cx="215" cy="85" r="6" fill="#eab308"/>
+            <text x="128" y="90" fill="#facc15" font-family="monospace" font-weight="bold" font-size="13">DO ➔ D6 (12)</text>
+          </g>
+
+          <g transform="translate(35, 450)">
+            <rect width="230" height="105" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+            <text x="16" y="28" fill="#22d3ee" font-weight="bold" font-size="15">4. Cảm biến Nhiệt/Ẩm DHT11</text>
+            <text x="16" y="52" fill="#94a3b8" font-size="12">Đọc Nhiệt độ (°C) &amp; Độ ẩm (%)</text>
+            <text x="16" y="75" fill="#f87171" font-family="monospace" font-size="12">VCC: 3.3V     | GND: GND</text>
+            <circle cx="215" cy="85" r="6" fill="#06b6d4"/>
+            <text x="115" y="90" fill="#22d3ee" font-family="monospace" font-weight="bold" font-size="13">DATA ➔ D3 (0)</text>
+          </g>
+
+          <!-- Center NodeMCU -->
+          <g transform="translate(420, 75)">
+            <rect width="310" height="500" rx="16" fill="#0f172a" stroke="#64748b" stroke-width="3"/>
+            <rect x="75" y="40" width="160" height="125" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+            <text x="155" y="95" fill="#f8fafc" font-weight="bold" font-size="18" text-anchor="middle">ESP8266</text>
+            <text x="155" y="118" fill="#38bdf8" font-family="monospace" font-size="13" text-anchor="middle">NodeMCU V3 / 12E</text>
+            <rect x="115" y="475" width="80" height="30" rx="4" fill="#475569" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="155" y="495" fill="#f8fafc" font-size="11" font-weight="bold" text-anchor="middle">MICRO USB</text>
+
+            <circle cx="18" cy="195" r="7" fill="#38bdf8"/><text x="34" y="200" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13">A0 (ADC0)</text>
+            <circle cx="18" cy="245" r="7" fill="#22c55e"/><text x="34" y="250" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13">D5 (GPIO14)</text>
+            <circle cx="18" cy="295" r="7" fill="#eab308"/><text x="34" y="300" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13">D6 (GPIO12)</text>
+            <circle cx="18" cy="345" r="7" fill="#06b6d4"/><text x="34" y="350" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13">D3 (GPIO0)</text>
+            <circle cx="18" cy="395" r="7" fill="#ef4444"/><text x="34" y="400" fill="#f87171" font-family="monospace" font-weight="bold" font-size="13">3V3 / VIN(5V)</text>
+            <circle cx="18" cy="435" r="7" fill="#94a3b8"/><text x="34" y="440" fill="#cbd5e1" font-family="monospace" font-weight="bold" font-size="13">GND (Mass)</text>
+
+            <circle cx="292" cy="195" r="7" fill="#c084fc"/><text x="276" y="200" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D1 (GPIO5)</text>
+            <circle cx="292" cy="235" r="7" fill="#a855f7"/><text x="276" y="240" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D2 (GPIO4)</text>
+            <circle cx="292" cy="290" r="7" fill="#f97316"/><text x="276" y="295" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D0 (GPIO16)</text>
+            <circle cx="292" cy="345" r="7" fill="#facc15"/><text x="276" y="350" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D4 (GPIO2)</text>
+            <circle cx="292" cy="395" r="7" fill="#ef4444"/><text x="276" y="400" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D7 (GPIO13)</text>
+            <circle cx="292" cy="440" r="7" fill="#ec4899"/><text x="276" y="445" fill="#e2e8f0" font-family="monospace" font-weight="bold" font-size="13" text-anchor="end">D8 (GPIO15)</text>
+          </g>
+
+          <!-- Right Actuators -->
+          <g transform="translate(880, 35)">
+            <rect width="235" height="115" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+            <text x="16" y="26" fill="#c084fc" font-weight="bold" font-size="15">5. Màn hình LCD 16x2 I2C</text>
+            <text x="16" y="48" fill="#94a3b8" font-size="12">Địa chỉ: 0x27 | Clock: 50kHz</text>
+            <text x="16" y="68" fill="#f87171" font-family="monospace" font-size="12">VCC: 5V (VIN) | GND: GND</text>
+            <circle cx="15" cy="86" r="5" fill="#c084fc"/>
+            <text x="28" y="90" fill="#c084fc" font-family="monospace" font-weight="bold" font-size="12">SCL ➔ D1 (GPIO5)</text>
+            <circle cx="15" cy="104" r="5" fill="#a855f7"/>
+            <text x="28" y="108" fill="#e9d5ff" font-family="monospace" font-weight="bold" font-size="12">SDA ➔ D2 (GPIO4)</text>
+          </g>
+
+          <g transform="translate(880, 175)">
+            <rect width="235" height="100" rx="10" fill="#1e293b" stroke="#f97316" stroke-width="2"/>
+            <text x="16" y="26" fill="#fb923c" font-weight="bold" font-size="15">6. Relay 1 - Quạt Thông Gió</text>
+            <text x="16" y="48" fill="#94a3b8" font-size="12">Active HIGH (Nóng &ge;34°C / Gas)</text>
+            <text x="16" y="68" fill="#f87171" font-family="monospace" font-size="12">VCC: 5V | GND: GND</text>
+            <circle cx="15" cy="86" r="6" fill="#f97316"/>
+            <text x="28" y="90" fill="#fb923c" font-family="monospace" font-weight="bold" font-size="13">IN ➔ D0 (GPIO16)</text>
+          </g>
+
+          <g transform="translate(880, 300)">
+            <rect width="235" height="100" rx="10" fill="#1e293b" stroke="#facc15" stroke-width="2"/>
+            <text x="16" y="26" fill="#fde047" font-weight="bold" font-size="15">7. Relay 2 - Đèn Học</text>
+            <text x="16" y="48" fill="#94a3b8" font-size="12">Active HIGH (Tối + Có người)</text>
+            <text x="16" y="68" fill="#f87171" font-family="monospace" font-size="12">VCC: 5V | GND: GND</text>
+            <circle cx="15" cy="86" r="6" fill="#facc15"/>
+            <text x="28" y="90" fill="#fde047" font-family="monospace" font-weight="bold" font-size="13">IN ➔ D4 (GPIO2)</text>
+          </g>
+
+          <g transform="translate(880, 425)">
+            <rect width="235" height="90" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+            <text x="16" y="26" fill="#f87171" font-weight="bold" font-size="15">8. Đèn LED Cảnh Báo</text>
+            <text x="16" y="48" fill="#94a3b8" font-size="12">Qua trở 220Ω | Nháy 300ms</text>
+            <circle cx="15" cy="72" r="6" fill="#ef4444"/>
+            <text x="28" y="76" fill="#f87171" font-family="monospace" font-weight="bold" font-size="13">Anode (+) ➔ D7 (13)</text>
+          </g>
+
+          <g transform="translate(880, 535)">
+            <rect width="235" height="90" rx="10" fill="#1e293b" stroke="#ec4899" stroke-width="2"/>
+            <text x="16" y="26" fill="#f472b6" font-weight="bold" font-size="15">9. Còi Báo Động (Buzzer)</text>
+            <text x="16" y="48" fill="#94a3b8" font-size="12">Kêu bíp 300ms khi nguy hiểm</text>
+            <circle cx="15" cy="72" r="6" fill="#ec4899"/>
+            <text x="28" y="76" fill="#f472b6" font-family="monospace" font-weight="bold" font-size="13">Chân (+) ➔ D8 (15)</text>
+          </g>
+
+          <!-- Wires -->
+          <path d="M 250 130 L 340 130 L 340 270 L 438 270" fill="none" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 250 265 L 320 265 L 320 320 L 438 320" fill="none" stroke="#22c55e" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 250 400 L 340 400 L 340 370 L 438 370" fill="none" stroke="#eab308" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 250 535 L 365 535 L 365 420 L 438 420" fill="none" stroke="#06b6d4" stroke-width="3" filter="url(#glow)"/>
+
+          <path d="M 712 270 L 785 270 L 785 121 L 895 121" fill="none" stroke="#c084fc" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 712 310 L 805 310 L 805 139 L 895 139" fill="none" stroke="#a855f7" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 712 365 L 825 365 L 825 261 L 895 261" fill="none" stroke="#f97316" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 712 420 L 835 420 L 835 386 L 895 386" fill="none" stroke="#facc15" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 712 470 L 825 470 L 825 497 L 895 497" fill="none" stroke="#ef4444" stroke-width="3" filter="url(#glow)"/>
+          <path d="M 712 515 L 795 515 L 795 607 L 895 607" fill="none" stroke="#ec4899" stroke-width="3" filter="url(#glow)"/>
+        </svg>
+      </div>
+
+      <!-- PIN-TO-PIN INTERFACING TABLE (Springer Table 54.2 / 54.3 Style) -->
+      <div class="table-wrap" style="margin-bottom: 24px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Chân NodeMCU</th>
+              <th>GPIO</th>
+              <th>Cảm biến / Thiết bị Ngoại vi</th>
+              <th>Chân Linh Kiện</th>
+              <th>Loại Giao Tiếp</th>
+              <th>Vai trò &amp; Ngưỡng Hoạt Động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A0</strong></td>
+              <td><code>ADC0</code></td>
+              <td>MQ-135 Gas Sensor</td>
+              <td><code>AO (Analog Out)</code></td>
+              <td><span class="badge b-adc">ANALOG IN</span></td>
+              <td>Đọc nồng độ khí <code>0–1023</code> (Báo động <code>&ge;500</code>, Tắt <code>&le;450</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>D0</strong></td>
+              <td><code>GPIO 16</code></td>
+              <td>Relay 1 (Cooling / Exhaust Fan)</td>
+              <td><code>IN</code></td>
+              <td><span class="badge b-out">DIGITAL OUT</span></td>
+              <td>Kích mức cao (<code>HIGH = ON</code> khi <code>Temp &ge; 34°C</code> hoặc <code>gasAlarm</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>D1</strong></td>
+              <td><code>GPIO 5</code></td>
+              <td>16×2 I2C LCD Display (0x27)</td>
+              <td><code>SCL</code></td>
+              <td><span class="badge b-i2c">I2C CLOCK</span></td>
+              <td>Xung nhịp I2C <code>50 kHz</code> chống nhiễu đường truyền</td>
+            </tr>
+            <tr>
+              <td><strong>D2</strong></td>
+              <td><code>GPIO 4</code></td>
+              <td>16×2 I2C LCD Display (0x27)</td>
+              <td><code>SDA</code></td>
+              <td><span class="badge b-i2c">I2C DATA</span></td>
+              <td>Truyền dữ liệu hiển thị 2 trang &amp; cảnh báo khẩn cấp</td>
+            </tr>
+            <tr>
+              <td><strong>D3</strong></td>
+              <td><code>GPIO 0</code></td>
+              <td>DHT11 Temp &amp; Humidity Sensor</td>
+              <td><code>DATA</code></td>
+              <td><span class="badge b-in">1-WIRE</span></td>
+              <td>Đo nhiệt độ &amp; độ ẩm chu kỳ <code>2000 ms</code></td>
+            </tr>
+            <tr>
+              <td><strong>D4</strong></td>
+              <td><code>GPIO 2</code></td>
+              <td>Relay 2 (Study Light)</td>
+              <td><code>IN</code></td>
+              <td><span class="badge b-out">DIGITAL OUT</span></td>
+              <td>Kích mức cao (<code>HIGH = ON</code> khi <code>isDark &amp;&amp; motionDetected</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>D5</strong></td>
+              <td><code>GPIO 14</code></td>
+              <td>PIR Motion Sensor (HC-SR501)</td>
+              <td><code>OUT</code></td>
+              <td><span class="badge b-in">INTERRUPT IN</span></td>
+              <td>Ngắt <code>RISING</code> + Giữ trạng thái có người <code>15,000 ms</code></td>
+            </tr>
+            <tr>
+              <td><strong>D6</strong></td>
+              <td><code>GPIO 12</code></td>
+              <td>LDR Photoresistor Sensor</td>
+              <td><code>DO (Digital Out)</code></td>
+              <td><span class="badge b-in">DIGITAL IN</span></td>
+              <td>Nhận biết ánh sáng tự nhiên (<code>HIGH = Trời tối</code>, <code>LOW = Sáng</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>D7</strong></td>
+              <td><code>GPIO 13</code></td>
+              <td>Warning LED (Red)</td>
+              <td><code>Anode (+)</code></td>
+              <td><span class="badge b-out">DIGITAL OUT</span></td>
+              <td>Nhấp nháy chu kỳ <code>300 ms</code> khi có báo động nhiệt/khí</td>
+            </tr>
+            <tr>
+              <td><strong>D8</strong></td>
+              <td><code>GPIO 15</code></td>
+              <td>Piezo Alarm Buzzer</td>
+              <td><code>Positive (+)</code></td>
+              <td><span class="badge b-out">DIGITAL OUT</span></td>
+              <td>Kêu bíp chu kỳ <code>300 ms</code> đồng bộ với LED cảnh báo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 4. NGƯỠNG HOẠT ĐỘNG & HYSTERESIS -->
+    <!-- ================================================================= -->
+    <section id="logic-hysteresis">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2>Bảng Ngưỡng Điều Khiển &amp; Thuật Toán Trễ (Hysteresis)</h2>
+        <span class="sub">Chống đóng/cắt Relay liên tục tại điểm biên</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>📊 Bảng Quy Tắc Điều Khiển Thiết Bị &amp; Cảnh Báo</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cơ cấu / Chức năng</th>
+                  <th>Ngưỡng BẬT (ON)</th>
+                  <th>Ngưỡng TẮT (OFF)</th>
+                  <th>Ghi chú Kỹ thuật</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Đèn học (D4)</strong></td>
+                  <td><code>LDR == HIGH</code> (Tối) VÀ <code>PIR == Có người</code></td>
+                  <td>Trời sáng HOẶC vắng người sau <code>15 giây</code></td>
+                  <td>Tránh tắt đèn khi học sinh ngồi yên ghi chép</td>
+                </tr>
+                <tr>
+                  <td><strong>Quạt làm mát (D0)</strong></td>
+                  <td><code>Temp &ge; 34.0°C</code> HOẶC <code>MQ135 &ge; 500</code></td>
+                  <td><code>Temp &le; 33.5°C</code> VÀ <code>MQ135 &le; 450</code></td>
+                  <td>Độ trễ Hysteresis <code>0.5°C</code> bảo vệ tiếp điểm Relay</td>
+                </tr>
+                <tr>
+                  <td><strong>Báo động Nhiệt</strong></td>
+                  <td><code>Temp &ge; 35.0°C</code></td>
+                  <td><code>Temp &le; 34.5°C</code></td>
+                  <td>Nháy LED (D7) + Còi (D8) + LCD báo <code>! NHIET DO CAO !</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Báo động Khí Gas</strong></td>
+                  <td><code>MQ135 &ge; 500</code></td>
+                  <td><code>MQ135 &le; 450</code></td>
+                  <td>Ép bật Quạt hút gió + Nháy LED/Còi + LCD <code>! CANH BAO KHI !</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🛡️ Các Kỹ Thuật Nâng Cao Trong Code</h3>
+          <ul style="padding-left: 18px; color: var(--text-muted); display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem;">
+            <li>
+              <strong style="color: var(--text-main);">Ngắt ngoài (Hardware Interrupt `IRAM_ATTR`):</strong>
+              Xung sườn lên từ cảm biến PIR tại chân <code>D5</code> được bắt tức thời qua hàm ngắt <code>onPirRisingEdge()</code>, không bỏ lỡ chuyển động ngay cả khi vi điều khiển đang đọc cảm biến DHT11.
+            </li>
+            <li>
+              <strong style="color: var(--text-main);">Chống loạn chữ LCD I2C khi đóng/ngắt tải cảm kháng:</strong>
+              Giảm tốc độ bus I2C xuống <code>50 kHz</code> (<code>Wire.setClock(50000)</code>), in đè cố định 16 ký tự bằng <code>snprintf("%-16s")</code> và tự động gọi <code>lcd.init()</code> mỗi 10 chu kỳ (20 giây).
+            </li>
+            <li>
+              <strong style="color: var(--text-main);">Ưu tiên An toàn Sinh mạng (Safety Override):</strong>
+              Khi phát hiện khí Gas (<code>gasAlarm = true</code>), hệ thống tự động cưỡng bức bật Quạt thông gió (<code>fanOn = tempFanNeed || gasAlarm</code>) và chiếm quyền hiển thị màn hình LCD.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 5. MÔ PHỎNG TƯƠNG TÁC & KỊCH BẢN DEMO -->
+    <!-- ================================================================= -->
+    <section id="simulator">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2>Trình Mô Phỏng Hoạt Động Trực Quan &amp; Kịch Bản Demo</h2>
+        <span class="sub">Kiểm thử trực tiếp logic của <code>Smart_Classroom_Upd_191026.ino</code></span>
+      </div>
+
+      <div class="card">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+          <button class="btn-action" style="background:#0284c7" onclick="applyScenario(29.5, 65, 220, true, true)">1️⃣ Kịch bản 1: Học sinh vào lớp lúc trời tối</button>
+          <button class="btn-action" style="background:#d97706" onclick="applyScenario(34.2, 60, 250, true, true)">2️⃣ Kịch bản 2: Trời nóng 34.2°C (Tự bật Quạt)</button>
+          <button class="btn-action" style="background:#dc2626" onclick="applyScenario(35.6, 55, 260, true, false)">3️⃣ Kịch bản 3: Quá nhiệt 35.6°C (Báo động Nhiệt)</button>
+          <button class="btn-action" style="background:#7c3aed" onclick="applyScenario(30.0, 65, 580, false, false)">4️⃣ Kịch bản 4: Rò rỉ Khí Gas MQ135 = 580</button>
+        </div>
+
+        <div class="sim-panel">
+          <div>
+            <div class="toggle-row">
+              <button id="btnPir" class="toggle-btn active" onclick="togglePir()">🚶 PIR (D5): CÓ NGƯỜI</button>
+              <button id="btnLdr" class="toggle-btn active" onclick="toggleLdr()">🌙 LDR (D6): TRỜI TỐI</button>
+            </div>
+
+            <div class="control-group">
+              <label>
+                <span>🌡️ Nhiệt độ DHT11 (Chân D3):</span>
+                <span id="lblTemp" style="color: var(--accent-blue); font-family: monospace;">29.5 °C</span>
+              </label>
+              <input type="range" id="rngTemp" min="25.0" max="40.0" step="0.1" value="29.5" oninput="updateSim()" />
+            </div>
+
+            <div class="control-group">
+              <label>
+                <span>💧 Độ ẩm DHT11 (Chân D3):</span>
+                <span id="lblHum" style="color: var(--accent-cyan); font-family: monospace;">65 %</span>
+              </label>
+              <input type="range" id="rngHum" min="30" max="95" step="1" value="65" oninput="updateSim()" />
+            </div>
+
+            <div class="control-group" style="margin-bottom: 0;">
+              <label>
+                <span>💨 Nồng độ Khí Gas MQ135 (Chân A0):</span>
+                <span id="lblGas" style="color: var(--accent-amber); font-family: monospace;">220</span>
+              </label>
+              <input type="range" id="rngGas" min="100" max="850" step="5" value="220" oninput="updateSim()" />
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="font-weight:700; font-size:0.88rem; color:var(--text-muted);">MÀN HÌNH LCD 16x2 I2C (0x27)</span>
+                <button class="btn-action" style="padding:4px 10px; font-size:0.78rem;" onclick="switchLcdPage()">🔄 Đổi Trang LCD (Page 0/1)</button>
+              </div>
+              <div class="lcd-bezel">
+                <div id="lcdDisplay" class="lcd-screen">T:29.5C H:65%   
+Gas:220 TOI     </div>
+              </div>
+            </div>
+
+            <div class="actuator-grid">
+              <div class="actuator-item">
+                <div id="dotLight" class="status-dot on-yellow"></div>
+                <div>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Relay Đèn Học (D4)</div>
+                  <div id="txtLight" style="font-weight:700;">BẬT (ON)</div>
+                </div>
+              </div>
+              <div class="actuator-item">
+                <div id="dotFan" class="status-dot"></div>
+                <div>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Relay Quạt (D0)</div>
+                  <div id="txtFan" style="font-weight:700;">TẮT (OFF)</div>
+                </div>
+              </div>
+              <div class="actuator-item">
+                <div id="dotLed" class="status-dot"></div>
+                <div>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">LED Cảnh Báo (D7)</div>
+                  <div id="txtLed" style="font-weight:700;">TẮT (LOW)</div>
+                </div>
+              </div>
+              <div class="actuator-item">
+                <div id="dotBuzzer" class="status-dot"></div>
+                <div>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Còi Buzzer (D8)</div>
+                  <div id="txtBuzzer" style="font-weight:700;">IM LẶNG (LOW)</div>
+                </div>
+              </div>
+            </div>
+
+            <pre id="serialOut" class="code-block" style="margin-top:12px;">PIR: CO    | LDR: TOI   | MQ135: 220  | Temp: 29.5*C Hum: 65% | Quat: TAT | Den Hoc: BAT | Trang thai: Binh thuong</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Export SVG / PNG Functions for Word & LaTeX Reports
+    function downloadSvg(svgId, filename) {
+      const svgEl = document.getElementById(svgId);
+      const serializer = new XMLSerializer();
+      let source = serializer.serializeToString(svgEl);
+      if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+      source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+      const url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function downloadPng(svgId, filename, width, height) {
+      const svgEl = document.getElementById(svgId);
+      const serializer = new XMLSerializer();
+      const svgStr = serializer.serializeToString(svgEl);
+      const svgBlob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(url);
+        const pngUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = pngUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+      img.src = url;
+    }
+
+    // Simulator State
+    let simPir = true;
+    let simDark = true;
+    let simTempFanNeed = false;
+    let simTempAlarm = false;
+    let simGasAlarm = false;
+    let simLcdPage = 0;
+
+    function pad16(str) {
+      return (str + "                ").substring(0, 16);
+    }
+
+    function togglePir() {
+      simPir = !simPir;
+      const btn = document.getElementById('btnPir');
+      btn.classList.toggle('active', simPir);
+      btn.innerText = simPir ? '🚶 PIR (D5): CÓ NGƯỜI' : '🚶 PIR (D5): VẮNG';
+      updateSim();
+    }
+
+    function toggleLdr() {
+      simDark = !simDark;
+      const btn = document.getElementById('btnLdr');
+      btn.classList.toggle('active', simDark);
+      btn.innerText = simDark ? '🌙 LDR (D6): TRỜI TỐI' : '☀️ LDR (D6): TRỜI SÁNG';
+      updateSim();
+    }
+
+    function switchLcdPage() {
+      simLcdPage = (simLcdPage + 1) % 2;
+      updateSim();
+    }
+
+    function applyScenario(temp, hum, gas, pir, dark) {
+      document.getElementById('rngTemp').value = temp;
+      document.getElementById('rngHum').value = hum;
+      document.getElementById('rngGas').value = gas;
+      simPir = pir;
+      simDark = dark;
+      document.getElementById('btnPir').classList.toggle('active', simPir);
+      document.getElementById('btnPir').innerText = simPir ? '🚶 PIR (D5): CÓ NGƯỜI' : '🚶 PIR (D5): VẮNG';
+      document.getElementById('btnLdr').classList.toggle('active', simDark);
+      document.getElementById('btnLdr').innerText = simDark ? '🌙 LDR (D6): TRỜI TỐI' : '☀️ LDR (D6): TRỜI SÁNG';
+      updateSim();
+    }
+
+    function updateSim() {
+      const temp = parseFloat(document.getElementById('rngTemp').value);
+      const hum = parseInt(document.getElementById('rngHum').value, 10);
+      const gas = parseInt(document.getElementById('rngGas').value, 10);
+
+      document.getElementById('lblTemp').innerText = temp.toFixed(1) + ' °C';
+      document.getElementById('lblHum').innerText = hum + ' %';
+      document.getElementById('lblGas').innerText = gas;
+
+      if (gas >= 500) simGasAlarm = true;
+      else if (gas <= 450) simGasAlarm = false;
+
+      if (temp >= 34.0) simTempFanNeed = true;
+      else if (temp <= 33.5) simTempFanNeed = false;
+
+      if (temp >= 35.0) simTempAlarm = true;
+      else if (temp <= 34.5) simTempAlarm = false;
+
+      const lightOn = simDark && simPir;
+      const fanOn = simTempFanNeed || simGasAlarm;
+      const alarmActive = simGasAlarm || simTempAlarm;
+
+      document.getElementById('dotLight').className = 'status-dot ' + (lightOn ? 'on-yellow' : '');
+      document.getElementById('txtLight').innerText = lightOn ? 'BẬT (ON)' : 'TẮT (OFF)';
+
+      document.getElementById('dotFan').className = 'status-dot ' + (fanOn ? 'on-green' : '');
+      document.getElementById('txtFan').innerText = fanOn ? 'BẬT (ON)' : 'TẮT (OFF)';
+
+      document.getElementById('dotLed').className = 'status-dot ' + (alarmActive ? 'on-red' : '');
+      document.getElementById('txtLed').innerText = alarmActive ? 'NHẤP NHÁY (300ms)' : 'TẮT (LOW)';
+
+      document.getElementById('dotBuzzer').className = 'status-dot ' + (alarmActive ? 'on-red' : '');
+      document.getElementById('txtBuzzer').innerText = alarmActive ? 'KÊU BÍP (300ms)' : 'IM LẶNG (LOW)';
+
+      let line0 = '', line1 = '';
+      const lcdEl = document.getElementById('lcdDisplay');
+
+      if (simGasAlarm) {
+        line0 = '! CANH BAO KHI !';
+        line1 = `Gas:${gas} Fan:ON`;
+        lcdEl.classList.add('alarm-mode');
+      } else if (simTempAlarm) {
+        line0 = '! NHIET DO CAO !';
+        line1 = `T:${temp.toFixed(1)}C Fan:ON`;
+        lcdEl.classList.add('alarm-mode');
+      } else {
+        lcdEl.classList.remove('alarm-mode');
+        if (simLcdPage === 0) {
+          line0 = `T:${temp.toFixed(1)}C H:${hum}%`;
+          line1 = `Gas:${gas} ${simDark ? 'TOI' : 'SANG'}`;
+        } else {
+          line0 = `PIR:${simPir ? 'CO NGUOI' : 'VANG'}`;
+          line1 = `Fan:${fanOn ? 'ON ' : 'OFF'} Den:${lightOn ? 'ON' : 'OFF'}`;
+        }
+      }
+      lcdEl.innerText = pad16(line0) + '\n' + pad16(line1);
+
+      const statusStr = simGasAlarm ? 'CANH BAO KHI GAS!' : (tempAlarm = simTempAlarm ? 'NHIET DO CAO!' : 'Binh thuong');
+      document.getElementById('serialOut').innerText =
+        `PIR: ${(simPir ? 'CO' : 'KHONG').padEnd(5)} | LDR: ${(simDark ? 'TOI' : 'SANG').padEnd(5)} | MQ135: ${String(gas).padEnd(4)} | ` +
+        `Temp: ${temp.toFixed(1)}*C Hum: ${hum}% | Quat: ${(fanOn ? 'BAT' : 'TAT').padEnd(3)} | Den Hoc: ${(lightOn ? 'BAT' : 'TAT').padEnd(3)} | Trang thai: ${statusStr}`;
+    }
+  </script>
+</body>
+</html>

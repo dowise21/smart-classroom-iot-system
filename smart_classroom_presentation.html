@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-slate-950 text-slate-100 select-none">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART CLASSROOM IoT SYSTEM - Slide Thuyết Trình Đồ Án</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        iot: {
+                            blue: '#1a73e8',
+                            green: '#28a745',
+                            red: '#dc3545',
+                            cyan: '#00d2ff',
+                            dark: '#080c14',
+                            surface: '#0f172a',
+                            border: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' }
+                        },
+                        flowRight: {
+                            '0%': { strokeDashoffset: '24' },
+                            '100%': { strokeDashoffset: '0' }
+                        },
+                        beacon: {
+                            '0%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(40, 167, 69, 0.7)' },
+                            '70%': { transform: 'scale(1)', boxShadow: '0 0 0 10px rgba(40, 167, 69, 0)' },
+                            '100%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(40, 167, 69, 0)' }
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'flow-right': 'flowRight 1.2s linear infinite',
+                        'beacon': 'beacon 2s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    
+    <!-- Mermaid.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <style>
+        /* Custom scrollbar and subtle glowing utilities */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-panel-glow {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 25px rgba(26, 115, 232, 0.15);
+        }
+
+        .circuit-bg {
+            background-color: #080c14;
+            background-image: 
+                radial-gradient(rgba(26, 115, 232, 0.12) 1px, transparent 1px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 32px 32px, 64px 64px, 64px 64px;
+        }
+
+        .slide-transition {
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* SVG Animated connection lines in Block Diagram */
+        .signal-line {
+            stroke-dasharray: 6, 6;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -12; }
+        }
+
+        /* Prevent text selection during presentation click */
+        .no-select {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body class="h-full w-full overflow-hidden circuit-bg font-sans text-slate-100 flex flex-col justify-between relative no-select">
+
+    <!-- ======================================================== -->
+    <!-- TOP NAVIGATION & STATUS BAR -->
+    <!-- ======================================================== -->
+    <header class="h-14 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-6 flex items-center justify-between z-40 shrink-0">
+        <!-- Project Branding -->
+        <div class="flex items-center gap-3">
+            <div class="h-8 w-8 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                <i class="fa-solid fa-microchip text-sm"></i>
+            </div>
+            <div>
+                <span class="font-display font-bold text-sm tracking-wider uppercase text-white">Smart Classroom</span>
+                <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-1.5 py-0.5 rounded ml-1.5">IoT v2.6</span>
+            </div>
+            <div class="hidden md:flex items-center gap-2 ml-4 pl-4 border-l border-slate-800 text-xs text-slate-400">
+                <span class="h-2 w-2 rounded-full bg-emerald-500 animate-beacon inline-block"></span>
+                <span>ESP8266 Live Node</span>
+            </div>
+        </div>
+
+        <!-- Middle: Slide Title Tracker -->
+        <div class="hidden lg:flex items-center gap-2 text-xs font-medium text-slate-300">
+            <span class="text-slate-500 uppercase font-mono">Chủ đề:</span>
+            <span id="headerSlideTitle" class="text-slate-200 font-semibold truncate max-w-md">Khởi đầu Dự án</span>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center gap-2">
+            <span id="slideCounterBadge" class="font-mono text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400">
+                01 / 14
+            </span>
+            <button onclick="toggleOverviewModal()" title="Danh sách Slide (M)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition text-xs flex items-center gap-1.5 border border-transparent hover:border-slate-700">
+                <i class="fa-solid fa-grid-2 text-sm"></i>
+                <span class="hidden sm:inline font-mono">Mục Lục</span>
+            </button>
+            <button onclick="toggleFullScreen()" title="Toàn màn hình (F)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800/60 rounded-lg transition border border-transparent hover:border-slate-700">
+                <i id="fullscreenIcon" class="fa-solid fa-expand text-sm"></i>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- ======================================================== -->
+    <!-- SLIDE VIEWPORT (SLIDES CONTAINER) -->
+    <!-- ======================================================== -->
+    <main class="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 relative overflow-hidden flex items-center justify-center">
+
+        <!-- ==================================================== -->
+        <!-- S1: TITLE SLIDE -->
+        <!-- ==================================================== -->
+        <div id="slide-1" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center text-center opacity-100 scale-100 pointer-events-auto">
+            <!-- Glowing Ambient Background Circle -->
+            <div class="absolute w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+            <div class="absolute w-72 h-72 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none -z-10 translate-x-32 translate-y-20"></div>
+
+            <!-- Top Modern Badges -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 mb-6">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-500/10 border border-blue-500/30 text-blue-400">
+                    <i class="fa-solid fa-wifi text-[10px]"></i> ESP8266 Architecture
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                    <i class="fa-solid fa-bell text-[10px]"></i> Edge-to-Cloud Alert
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-400">
+                    <i class="fa-solid fa-shield-halved text-[10px]"></i> Fail-Safe AP Fallback
+                </span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black font-display tracking-tight text-white mb-4 max-w-5xl leading-tight">
+                SMART CLASSROOM <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">IoT SYSTEM</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg sm:text-xl lg:text-2xl text-slate-300 font-medium max-w-4xl mb-8 leading-relaxed">
+                Hệ thống Giám sát An toàn và Tự động hóa Phòng học Thông minh dựa trên Vi điều khiển ESP8266
+            </p>
+
+            <!-- Metadata Box -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 max-w-2xl w-full grid grid-cols-2 sm:grid-cols-4 gap-4 text-left shadow-2xl">
+                <div>
+                    <span class="block text-[11px] font-mono uppercase text-slate-400">Học phần</span>
+                    <span class="text-sm font-bold text-slate-200">IOT102 - Capstone</span>
+                </div>
+                <div>
+                    <span class="block text-[11px] font-mono uppercase text-slate-400">Học kỳ</span>
+                    <span class="text-sm font-bold text-slate-200">Fall 2026</span>
+                </div>
+                <div>
+                    <span class="block text-[11px] font-mono uppercase text-slate-400">Nền tảng</span>
+                    <span class="text-sm font-bold text-cyan-400">ESP8266 NodeMCU</span>
+                </div>
+                <div>
+                    <span class="block text-[11px] font-mono uppercase text-slate-400">Trạng thái</span>
+                    <span class="inline-flex items-center gap-1 text-sm font-bold text-emerald-400">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400"></span> Sẵn sàng
+                    </span>
+                </div>
+            </div>
+
+            <div class="mt-8 flex items-center gap-3 text-xs text-slate-400">
+                <span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 font-mono">Dùng phím Space hoặc ➔ để tiếp tục</span>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S2: TEAM MEMBERS -->
+        <!-- ==================================================== -->
+        <div id="slide-2" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-2xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-blue-400 bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full">
+                    Project Contributors
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Thành Viên Nhóm Thực Hiện</h2>
+                <p class="text-sm text-slate-400 mt-1">Đội ngũ kỹ thuật phụ trách phát triển hệ thống Smart Classroom IoT</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl w-full">
+                <!-- Member 1: Embedded -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-blue-500/60 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                                Firmware Lead
+                            </span>
+                            <h3 class="font-bold text-slate-100 text-base mt-1 group-hover:text-blue-400 transition">Nguyễn Văn A</h3>
+                            <p class="text-xs font-mono text-slate-400">MSSV: SE170001</p>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5 text-xs text-slate-300 border-t border-slate-800 pt-3">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-[10px]"></i> Non-blocking millis() Logic</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-[10px]"></i> Hardware Interrupt PIR (ISR)</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400 text-[10px]"></i> Logic Escalation Alert & Cooldown</div>
+                    </div>
+                </div>
+
+                <!-- Member 2: Hardware -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-emerald-500/60 hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                Hardware Engineer
+                            </span>
+                            <h3 class="font-bold text-slate-100 text-base mt-1 group-hover:text-emerald-400 transition">Trần Thị B</h3>
+                            <p class="text-xs font-mono text-slate-400">MSSV: SE170002</p>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5 text-xs text-slate-300 border-t border-slate-800 pt-3">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Thiết kế mạch Fritzing & Pinout</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Đấu nối Relay Quạt & Đèn học</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Tích hợp cảm biến DHT11 & MQ135</div>
+                    </div>
+                </div>
+
+                <!-- Member 3: Cloud & Web -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                                Cloud / Web Dev
+                            </span>
+                            <h3 class="font-bold text-slate-100 text-base mt-1 group-hover:text-cyan-400 transition">Lê Văn C</h3>
+                            <p class="text-xs font-mono text-slate-400">MSSV: SE170003</p>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5 text-xs text-slate-300 border-t border-slate-800 pt-3">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Giao diện Web Dashboard Port 80</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Google Apps Script Webhook API</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400 text-[10px]"></i> Fallback WiFi AP (192.168.4.1)</div>
+                    </div>
+                </div>
+
+                <!-- Member 4: Documentation & QA -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-purple-500/60 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center text-white text-xl font-bold shadow-md">
+                            <i class="fa-solid fa-file-shield"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                QA & Testing
+                            </span>
+                            <h3 class="font-bold text-slate-100 text-base mt-1 group-hover:text-purple-400 transition">Phạm Văn D</h3>
+                            <p class="text-xs font-mono text-slate-400">MSSV: SE170004</p>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5 text-xs text-slate-300 border-t border-slate-800 pt-3">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-[10px]"></i> 4 Kịch bản kiểm thử (Test Cases)</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-[10px]"></i> Tài liệu kỹ thuật & Báo cáo đồ án</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400 text-[10px]"></i> Video Demo & Slide Thuyết trình</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S3: CONTEXT & PROBLEMS -->
+        <!-- ==================================================== -->
+        <div id="slide-3" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-rose-400 bg-rose-950/60 border border-rose-800/60 px-3 py-1 rounded-full">
+                    Problem Statement
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Bối Cảnh & Vấn Đề Thực Tiễn</h2>
+                <p class="text-sm text-slate-400 mt-1">Những bất cập cố hữu trong việc quản lý cơ sở vật chất phòng học truyền thống</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full">
+                <!-- Card 1 -->
+                <div class="glass-panel p-6 rounded-2xl border border-rose-500/30 hover:border-rose-500/70 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-plug-circle-bolt"></i>
+                        </div>
+                        <span class="text-xs font-mono text-rose-400 uppercase tracking-wider">Vấn Đề 01</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-3">Lãng Phí Điện Năng</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Sinh viên và giảng viên thường xuyên <span class="text-rose-300 font-semibold">quên tắt đèn, quạt sau khi rời lớp</span>. 
+                            Các thiết bị hoạt động lãng phí suốt đêm và cuối tuần, tiêu tốn hàng trăm triệu đồng tiền điện mỗi năm của nhà trường.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-2 text-xs font-mono text-rose-400 bg-rose-950/30 px-3 py-2 rounded-lg">
+                        <i class="fa-solid fa-chart-line-down"></i> Tiêu hao ~30-40% điện dư thừa
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-6 rounded-2xl border border-amber-500/30 hover:border-amber-500/70 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">Vấn Đề 02</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-3">Rủi Ro Cháy Nổ Ngoài Giờ</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Các sự cố rò rỉ khí gas trong phòng thí nghiệm, chập dây do quá nhiệt hoặc khói âm ỉ xảy ra ngoài giờ học 
+                            <span class="text-amber-300 font-semibold">hoàn toàn không có người phát hiện</span>, dẫn đến nguy cơ cháy lớn thiêu rụi tài sản.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-2 text-xs font-mono text-amber-400 bg-amber-950/30 px-3 py-2 rounded-lg">
+                        <i class="fa-solid fa-fire-flame-curved"></i> Không có cảnh báo từ xa tức thì
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-6 rounded-2xl border border-blue-500/30 hover:border-blue-500/70 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                            <i class="fa-solid fa-toggle-off"></i>
+                        </div>
+                        <span class="text-xs font-mono text-blue-400 uppercase tracking-wider">Vấn Đề 03</span>
+                        <h3 class="text-xl font-bold text-white mt-1 mb-3">Công Tắc Cơ Thụ Động</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Hệ thống công tắc cơ truyền thống <span class="text-blue-300 font-semibold">phụ thuộc 100% vào ý thức con người</span>. 
+                            Không có khả năng điều khiển tập trung, không có dữ liệu giám sát môi trường và không thể tự động hóa thích ứng.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-2 text-xs font-mono text-blue-400 bg-blue-950/30 px-3 py-2 rounded-lg">
+                        <i class="fa-solid fa-hand"></i> Thiếu vắng tư duy tự động thông minh
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S4: PRODUCT INTRO -->
+        <!-- ==================================================== -->
+        <div id="slide-4" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full">
+                    Our Solution
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Tổng Quan Giải Pháp Smart Classroom</h2>
+                <p class="text-sm text-slate-400 mt-1">Hệ thống IoT hoàn chỉnh kết hợp tính toán tại biên (Edge) và kết nối đám mây (Cloud)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full">
+                <!-- Feature 1 -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 flex items-start gap-4 hover:border-blue-500/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0 border border-blue-500/30">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                            Tự Động Hóa Đèn & Quạt Thông Minh
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">Context-Aware</span>
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Đèn học tự bật khi <strong>có người VÀ phòng tối</strong> (PIR + LDR). Quạt tự động bật khi <strong>nhiệt độ &ge; 30.0°C</strong> với ngưỡng trễ Hysteresis chống rung rơ-le.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 flex items-start gap-4 hover:border-emerald-500/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 border border-emerald-500/30">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                            Giám Sát Đa Cảm Biến Thời Gian Thực
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Non-blocking</span>
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Thu thập dữ liệu DHT11 (Nhiệt độ/Độ ẩm), MQ135 (Gas/Khói), PIR (Chuyển động) và LDR (Ánh sáng). Cập nhật song song lên màn hình LCD 1602 I2C mỗi 2 giây.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 flex items-start gap-4 hover:border-cyan-500/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 border border-cyan-500/30">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                            Web Dashboard & WiFi AP Fallback
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">192.168.4.1</span>
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Trang quản trị nội bộ trực quan trên cổng 80. Nếu mất sóng WiFi trường sau 15 giây, ESP8266 tự động phát Access Point độc lập để tiếp tục giám sát.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 flex items-start gap-4 hover:border-rose-500/50 transition">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl shrink-0 border border-rose-500/30">
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                            Cảnh Báo Email HTML Khẩn Cấp
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">5-min Cooldown</span>
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Tích hợp Google Apps Script Webhook. Khi có rò rỉ khí gas hoặc quá nhiệt, gửi ngay Email HTML định dạng chuyên nghiệp với cơ chế chống bão mail spam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S5: TABLE OF CONTENTS -->
+        <!-- ==================================================== -->
+        <div id="slide-5" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                    Presentation Roadmap
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Mục Lục Nội Dung Trình Bày</h2>
+                <p class="text-sm text-slate-400 mt-1">Cấu trúc 5 phần chi tiết của buổi bảo vệ đồ án</p>
+            </div>
+
+            <!-- Bento Grid Agenda -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full">
+                <!-- Part 1 -->
+                <div onclick="goToSlide(3)" class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-blue-500 cursor-pointer transition group">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-3xl font-black font-display text-blue-500/40 group-hover:text-blue-400 transition">01</span>
+                        <span class="text-xs font-mono text-slate-400 px-2 py-1 bg-slate-900 rounded">Slide 3 - 5</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white group-hover:text-blue-300 transition">Bối Cảnh & Mục Tiêu</h3>
+                    <p class="text-xs text-slate-400 mt-1">Vấn đề thực tiễn, tính cấp thiết và giải pháp tổng quan của đề tài.</p>
+                </div>
+
+                <!-- Part 2 -->
+                <div onclick="goToSlide(6)" class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-emerald-500 cursor-pointer transition group">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-3xl font-black font-display text-emerald-500/40 group-hover:text-emerald-400 transition">02</span>
+                        <span class="text-xs font-mono text-slate-400 px-2 py-1 bg-slate-900 rounded">Slide 6 - 7</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition">Phần Cứng & Cảm Biến</h3>
+                    <p class="text-xs text-slate-400 mt-1">Thông số 4 cảm biến, sơ đồ Fritzing và bảng phân bổ chân Pinout.</p>
+                </div>
+
+                <!-- Part 3 -->
+                <div onclick="goToSlide(8)" class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-cyan-500 cursor-pointer transition group">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-3xl font-black font-display text-cyan-500/40 group-hover:text-cyan-400 transition">03</span>
+                        <span class="text-xs font-mono text-slate-400 px-2 py-1 bg-slate-900 rounded">Slide 8 - 9</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition">Sơ Đồ Khối & Thuật Toán</h3>
+                    <p class="text-xs text-slate-400 mt-1">Kiến trúc phần cứng toàn diện và lưu đồ thuật toán luồng thực thi.</p>
+                </div>
+
+                <!-- Part 4 (Spans 2 cols on md) -->
+                <div onclick="goToSlide(10)" class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-purple-500 cursor-pointer transition group md:col-span-2">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-3xl font-black font-display text-purple-500/40 group-hover:text-purple-400 transition">04</span>
+                        <span class="text-xs font-mono text-slate-400 px-2 py-1 bg-slate-900 rounded">Slide 10 - 11</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white group-hover:text-purple-300 transition">Ảnh Thực Tế, Test Cases & Video Demo</h3>
+                    <p class="text-xs text-slate-400 mt-1">Trưng bày diorama phòng học thực tế, mã QR demo YouTube/GitHub và 4 kịch bản kiểm thử nghiêm ngặt.</p>
+                </div>
+
+                <!-- Part 5 -->
+                <div onclick="goToSlide(12)" class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-rose-500 cursor-pointer transition group">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-3xl font-black font-display text-rose-500/40 group-hover:text-rose-400 transition">05</span>
+                        <span class="text-xs font-mono text-slate-400 px-2 py-1 bg-slate-900 rounded">Slide 12 - 14</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white group-hover:text-rose-300 transition">Kết Luận, Phát Triển & Q&A</h3>
+                    <p class="text-xs text-slate-400 mt-1">Đánh giá tính năng, 3 hướng mở rộng tương lai và thảo luận với Hội đồng.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S6: SENSORS & ROLES -->
+        <!-- ==================================================== -->
+        <div id="slide-6" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-6 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-blue-400 bg-blue-950/60 border border-blue-800/60 px-3 py-1 rounded-full">
+                    Sensor Modules
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Hệ Thống Cảm Biến & Vai Trò</h2>
+                <p class="text-sm text-slate-400 mt-1">Chi tiết 4 loại cảm biến ngoại vi và ngưỡng kích hoạt điều khiển</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl w-full">
+                <!-- Sensor 1: DHT11 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-blue-500/60 transition group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-temperature-half"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">DHT11 - Nhiệt Độ & Độ Ẩm</h3>
+                                <span class="text-xs font-mono text-blue-400">Pin: D3 (GPIO0)</span>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20">Digital Bus</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+                        Theo dõi nhiệt độ và độ ẩm phòng học liên tục với chu kỳ đọc 2 giây non-blocking.
+                    </p>
+                    <div class="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 font-mono text-xs">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Ngưỡng Bật Quạt & Cảnh báo:</span>
+                            <span class="text-rose-400 font-bold">&ge; 30.0°C</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Ngưỡng Tắt Quạt (Hysteresis):</span>
+                            <span class="text-emerald-400 font-bold">&le; 29.5°C</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-800">
+                            <i class="fa-solid fa-shield-check text-blue-400"></i> Độ trễ 0.5°C chống bật/tắt rơ-le gián đoạn.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sensor 2: MQ135 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-amber-500/60 transition group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-smog"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">MQ135 - Khí Gas & Khói Độc</h3>
+                                <span class="text-xs font-mono text-amber-400">Pin: A0 (ADC0 10-bit)</span>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20">Analog ADC</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+                        Phát hiện nồng độ khí Gas, khói và các chất gây ngạt, cháy nổ trong không khí.
+                    </p>
+                    <div class="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 font-mono text-xs">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Ngưỡng Kích Hoạt Còi Hú:</span>
+                            <span class="text-rose-400 font-bold">&ge; 500 (ADC)</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Ngưỡng Ngắt Báo Động:</span>
+                            <span class="text-emerald-400 font-bold">&le; 450 (ADC)</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-800">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Nguy cơ đe dọa sinh mạng: Bật quạt hết công suất & Hú còi liên tục.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sensor 3: PIR HC-SR501 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-emerald-500/60 transition group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-person-walking"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">PIR HC-SR501 - Chuyển Động</h3>
+                                <span class="text-xs font-mono text-emerald-400">Pin: D5 (GPIO14)</span>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Hardware ISR</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+                        Phát hiện người qua bức xạ hồng ngoại thụ động. Kích hoạt bằng ngắt phần cứng (Hardware Interrupt).
+                    </p>
+                    <div class="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 font-mono text-xs">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Phương thức đọc:</span>
+                            <span class="text-cyan-400 font-bold">attachInterrupt(RISING)</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Thời gian trễ giữ sáng:</span>
+                            <span class="text-emerald-400 font-bold">15 giây (PIR_HOLD_TIME)</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-800">
+                            <i class="fa-solid fa-clock text-emerald-400"></i> Giữ đèn sáng thêm 15s tránh tắt bất ngờ khi người ngồi yên ghi bài.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sensor 4: LDR Photoresistor -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 hover:border-cyan-500/60 transition group">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">LDR - Cảm Biến Ánh Sáng</h3>
+                                <span class="text-xs font-mono text-cyan-400">Pin: D6 (GPIO12)</span>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Digital DO</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+                        Mô-đun quang trở phân biệt trạng thái Tối/Sáng môi trường với biến trở vi chỉnh độ nhạy.
+                    </p>
+                    <div class="mt-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 font-mono text-xs">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Logic điều khiển Đèn:</span>
+                            <span class="text-cyan-300 font-bold">isDark && motionDetected</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Trời sáng tự nhiên:</span>
+                            <span class="text-slate-400 font-bold">Đèn luôn TẮT (Tiết kiệm điện)</span>
+                        </div>
+                        <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-800">
+                            <i class="fa-solid fa-bolt-slash text-cyan-400"></i> Tiết kiệm tối đa điện năng vào ban ngày khi ánh sáng đã đủ.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S7: CIRCUIT DIAGRAM & PINOUT (FRITZING) -->
+        <!-- ==================================================== -->
+        <div id="slide-7" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-6 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                    Wiring & Schematic
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Sơ Đồ Đấu Dây Fritzing & Bảng Pinout</h2>
+                <p class="text-sm text-slate-400 mt-1">Phân bổ chân chi tiết trên vi điều khiển ESP8266 NodeMCU</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-6xl w-full items-stretch">
+                <!-- Left: Fritzing Image Container (7 cols) -->
+                <div class="lg:col-span-7 glass-panel p-4 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="h-2.5 w-2.5 rounded-full bg-rose-500 inline-block"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-amber-500 inline-block"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                            <span class="text-xs font-mono text-slate-400 ml-2">Fritzing_Wiring_Diagram.png</span>
+                        </div>
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800">
+                            Breadboard View
+                        </span>
+                    </div>
+
+                    <!-- Image Display / Placeholder -->
+                    <div class="my-3 relative rounded-xl overflow-hidden bg-slate-900 border border-slate-800 group h-64 sm:h-72 flex items-center justify-center">
+                        <!-- Direct image tag with fallback -->
+                        <img id="fritzingImg" 
+                             src="Smart Classroom System Diorama.png" 
+                             alt="Fritzing Wiring Schematic" 
+                             class="w-full h-full object-contain p-2 group-hover:scale-105 transition-all duration-300"
+                             onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80';">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                            <p class="text-xs text-cyan-300 font-mono"><i class="fa-solid fa-magnifying-glass-plus"></i> Sơ đồ kết nối phần cứng thực tế</p>
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] text-slate-400 flex items-center justify-between font-mono bg-slate-900/60 px-3 py-2 rounded-lg border border-slate-800">
+                        <span><i class="fa-solid fa-circle-info text-blue-400"></i> Nguồn cấp: 5V DC micro-USB & Breadboard Power</span>
+                        <span class="text-emerald-400">Common GND Grounded</span>
+                    </div>
+                </div>
+
+                <!-- Right: Detailed Pinout Table (5 cols) -->
+                <div class="lg:col-span-5 glass-panel p-4 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+                    <h3 class="text-sm font-bold font-mono uppercase text-slate-200 pb-2 border-b border-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-cyan-400"></i> Bảng Phân Bổ Chân (Pinout Mapping)
+                    </h3>
+
+                    <div class="overflow-y-auto max-h-[300px] pr-1 space-y-1.5 text-xs font-mono my-2">
+                        <!-- D0 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 hover:border-blue-500/40">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">D0</span>
+                                <span class="text-slate-400 text-[10px]">GPIO16</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">Relay Quạt Tản Nhiệt</span>
+                            <span class="text-[10px] text-blue-400 font-bold">Active High</span>
+                        </div>
+
+                        <!-- D4 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 hover:border-emerald-500/40">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">D4</span>
+                                <span class="text-slate-400 text-[10px]">GPIO2</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">LED Đèn Học</span>
+                            <span class="text-[10px] text-emerald-400 font-bold">Active Low</span>
+                        </div>
+
+                        <!-- D7 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 hover:border-rose-500/40">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">D7</span>
+                                <span class="text-slate-400 text-[10px]">GPIO13</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">Warning LED Đỏ</span>
+                            <span class="text-[10px] text-rose-400 font-bold">Active High</span>
+                        </div>
+
+                        <!-- D8 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 hover:border-amber-500/40">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">D8</span>
+                                <span class="text-slate-400 text-[10px]">GPIO15</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">Còi Buzzer Báo Động</span>
+                            <span class="text-[10px] text-amber-400 font-bold">Active High</span>
+                        </div>
+
+                        <!-- D1 / D2 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80 hover:border-cyan-500/40">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">D1 / D2</span>
+                                <span class="text-slate-400 text-[10px]">GPIO5/4</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">LCD 1602 I2C (SCL/SDA)</span>
+                            <span class="text-[10px] text-cyan-400 font-bold">Addr 0x27</span>
+                        </div>
+
+                        <!-- D3 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">D3</span>
+                                <span class="text-slate-400 text-[10px]">GPIO0</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">DHT11 Data Pin</span>
+                            <span class="text-[10px] text-slate-400">1-Wire</span>
+                        </div>
+
+                        <!-- D5 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">D5</span>
+                                <span class="text-slate-400 text-[10px]">GPIO14</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">PIR Motion Signal</span>
+                            <span class="text-[10px] text-emerald-400 font-bold">Interrupt</span>
+                        </div>
+
+                        <!-- D6 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">D6</span>
+                                <span class="text-slate-400 text-[10px]">GPIO12</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">LDR Light Digital Out</span>
+                            <span class="text-[10px] text-slate-400">Digital In</span>
+                        </div>
+
+                        <!-- A0 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/70 border border-slate-800/80">
+                            <div class="flex items-center gap-2">
+                                <span class="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">A0</span>
+                                <span class="text-slate-400 text-[10px]">ADC0</span>
+                            </div>
+                            <span class="text-slate-200 font-sans font-semibold">MQ135 Gas Analog Out</span>
+                            <span class="text-[10px] text-amber-400 font-bold">0-1023 ADC</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                        <i class="fa-solid fa-microchip text-cyan-400"></i> Sử dụng chuẩn ngắt phần cứng trên D5 để phản xạ tức thời &lt; 1ms.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S8: BLOCK DIAGRAM (MANDATORY REQUIREMENT) -->
+        <!-- ==================================================== -->
+        <div id="slide-8" class="slide-transition absolute inset-0 p-4 sm:p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-3 max-w-3xl">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-3 py-0.5 rounded-full">
+                    Technical Architecture
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-white mt-1">Sơ Đồ Khối Hệ Thống (Block Diagram)</h2>
+                <p class="text-xs text-slate-400">Cấu trúc kết nối chuẩn kỹ thuật giữa Khối Xử lý Trung tâm, Cảm biến, Thiết bị chấp hành & Máy chủ</p>
+            </div>
+
+            <!-- Architectural Layout Container -->
+            <div class="max-w-6xl w-full flex flex-col gap-3">
+                
+                <!-- 1. TOP: EXTERNAL CONTROL & CLOUD SERVERS (2 Rounded Rectangles) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto w-full">
+                    <!-- Top Box 1: Web Server -->
+                    <div class="glass-panel p-3 rounded-xl border border-blue-500/40 text-center relative shadow-lg shadow-blue-500/5 group hover:border-blue-400 transition">
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <i class="fa-solid fa-server text-blue-400 text-sm"></i>
+                            <h4 class="font-bold text-xs text-white">Web Server Dashboard (Port 80)</h4>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-mono">STA: LAN IP &bull; AP: 192.168.4.1 Fallback</p>
+                        <!-- Downward signal arrow indicator -->
+                        <div class="text-blue-400 text-xs mt-1 animate-bounce">
+                            <i class="fa-solid fa-arrows-up-down"></i>
+                        </div>
+                    </div>
+
+                    <!-- Top Box 2: Google Apps Script Webhook -->
+                    <div class="glass-panel p-3 rounded-xl border border-rose-500/40 text-center relative shadow-lg shadow-rose-500/5 group hover:border-rose-400 transition">
+                        <div class="flex items-center justify-center gap-2 mb-1">
+                            <i class="fa-solid fa-envelope-open-text text-rose-400 text-sm"></i>
+                            <h4 class="font-bold text-xs text-white">Google Apps Script Webhook</h4>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-mono">HTTPS POST Email Alert API (5-min Cooldown)</p>
+                        <!-- Downward signal arrow indicator -->
+                        <div class="text-rose-400 text-xs mt-1 animate-bounce">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. MIDDLE ROW: INPUTS (LEFT 4) <==> ESP8266 (CENTER) ==> OUTPUTS (RIGHT 5) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+                    
+                    <!-- BÊN TRÁI: 4 KHỐI INPUTS (DHT11, MQ135, PIR, LDR) -->
+                    <div class="lg:col-span-3 flex flex-col gap-2">
+                        <div class="text-[11px] font-mono font-bold uppercase text-blue-400 tracking-wider flex items-center gap-1.5 px-2">
+                            <i class="fa-solid fa-right-to-bracket"></i> Khối Cảm Biến Đầu Vào (Inputs)
+                        </div>
+
+                        <!-- Input 1: DHT11 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-blue-500/30 flex items-center justify-between shadow hover:border-blue-500 transition">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-temperature-half"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">DHT11 Sensor</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Nhiệt độ & Độ ẩm</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-blue-400">
+                                <span>D3 (GPIO0)</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Input 2: MQ135 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-amber-500/30 flex items-center justify-between shadow hover:border-amber-500 transition">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-smog"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">MQ135 Gas Sensor</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Khí Gas & Khói</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-amber-400">
+                                <span>A0 (ADC)</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Input 3: PIR HC-SR501 -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-emerald-500/30 flex items-center justify-between shadow hover:border-emerald-500 transition">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-person-walking"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">PIR HC-SR501</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Phát hiện Chuyển động</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-emerald-400">
+                                <span>D5 (GPIO14)</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+
+                        <!-- Input 4: LDR Sensor -->
+                        <div class="glass-panel p-2.5 rounded-xl border border-cyan-500/30 flex items-center justify-between shadow hover:border-cyan-500 transition">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-sun"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">LDR Sensor</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Cảm biến Ánh sáng</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-cyan-400">
+                                <span>D6 (GPIO12)</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- CHÍNH GIỮA: KHỐI ESP8266 NODEMCU CONTROLLER -->
+                    <div class="lg:col-span-5 p-4 rounded-2xl border-2 border-cyan-500/50 bg-gradient-to-b from-slate-900/95 to-slate-950/95 shadow-2xl shadow-cyan-500/10 relative overflow-hidden">
+                        <!-- Tech pattern overlay -->
+                        <div class="absolute -right-8 -top-8 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-2">
+                            <div class="flex items-center gap-2">
+                                <div class="h-8 w-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-sm font-bold">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-sm text-white font-display">ESP8266 NodeMCU Controller</h3>
+                                    <p class="text-[10px] font-mono text-cyan-400">Tensilica Xtensa 32-bit CPU @ 80/160MHz</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                Core Brain
+                            </span>
+                        </div>
+
+                        <!-- Internal Sub-blocks -->
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 rounded-lg bg-slate-950/70 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-300 font-mono text-[11px]"><i class="fa-solid fa-clock text-blue-400 mr-1.5"></i> Non-Blocking Scheduler</span>
+                                <span class="text-[10px] text-blue-300 font-mono">millis() Loop Engine</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-950/70 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-300 font-mono text-[11px]"><i class="fa-solid fa-bolt text-emerald-400 mr-1.5"></i> Hardware Interrupt (ISR)</span>
+                                <span class="text-[10px] text-emerald-300 font-mono">PIR Motion Handler</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-950/70 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-300 font-mono text-[11px]"><i class="fa-solid fa-code-branch text-purple-400 mr-1.5"></i> Edge Decision Engine</span>
+                                <span class="text-[10px] text-purple-300 font-mono">Hysteresis & Safety Override</span>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-950/70 border border-slate-800 flex items-center justify-between">
+                                <span class="text-slate-300 font-mono text-[11px]"><i class="fa-solid fa-wifi text-cyan-400 mr-1.5"></i> Dual-Mode WiFi Stack</span>
+                                <span class="text-[10px] text-cyan-300 font-mono">STA Client + SoftAP Fallback</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time data bus indicator -->
+                        <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                            <span class="flex items-center gap-1 text-emerald-400"><i class="fa-solid fa-circle text-[7px] animate-ping"></i> Bus Active</span>
+                            <span>I2C + GPIO + ADC0 + UART</span>
+                        </div>
+                    </div>
+
+
+                    <!-- BÊN PHẢI: 5 KHỐI OUTPUTS -->
+                    <div class="lg:col-span-4 flex flex-col gap-2">
+                        <div class="text-[11px] font-mono font-bold uppercase text-emerald-400 tracking-wider flex items-center gap-1.5 px-2">
+                            <i class="fa-solid fa-right-from-bracket"></i> Khối Thiết Bị Đầu Ra (Outputs)
+                        </div>
+
+                        <!-- Output 1: Relay Fan -->
+                        <div class="glass-panel p-2 rounded-xl border border-blue-500/30 flex items-center justify-between shadow hover:border-blue-500 transition">
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-blue-400">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <span>D0 (GPIO16)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-right">
+                                <div>
+                                    <div class="text-xs font-bold text-white">Relay Quạt Tản Nhiệt</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Làm mát / Thông gió</div>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-fan"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output 2: Relay/LED Light -->
+                        <div class="glass-panel p-2 rounded-xl border border-emerald-500/30 flex items-center justify-between shadow hover:border-emerald-500 transition">
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-emerald-400">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <span>D4 (GPIO2)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-right">
+                                <div>
+                                    <div class="text-xs font-bold text-white">LED Đèn Học</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Chiếu sáng tự động</div>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output 3: Warning LED -->
+                        <div class="glass-panel p-2 rounded-xl border border-rose-500/30 flex items-center justify-between shadow hover:border-rose-500 transition">
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-rose-400">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <span>D7 (GPIO13)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-right">
+                                <div>
+                                    <div class="text-xs font-bold text-white">LED Cảnh Báo Đỏ</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Chớp khi có sự cố</div>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output 4: Buzzer -->
+                        <div class="glass-panel p-2 rounded-xl border border-amber-500/30 flex items-center justify-between shadow hover:border-amber-500 transition">
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-amber-400">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <span>D8 (GPIO15)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-right">
+                                <div>
+                                    <div class="text-xs font-bold text-white">Còi Buzzer</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Hú còi khẩn cấp Gas</div>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-bullhorn"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output 5: LCD 1602 -->
+                        <div class="glass-panel p-2 rounded-xl border border-cyan-500/30 flex items-center justify-between shadow hover:border-cyan-500 transition">
+                            <div class="flex items-center gap-1 font-mono text-[10px] text-cyan-400">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <span>D1/D2 I2C</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-right">
+                                <div>
+                                    <div class="text-xs font-bold text-white">LCD 1602 Display</div>
+                                    <div class="text-[10px] font-mono text-slate-400">Hiển thị thông số (0x27)</div>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-tv"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S9: FLOWCHART (MERMAID.JS) -->
+        <!-- ==================================================== -->
+        <div id="slide-9" class="slide-transition absolute inset-0 p-4 sm:p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-3 max-w-3xl">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-purple-400 bg-purple-950/60 border border-purple-800/60 px-3 py-0.5 rounded-full">
+                    Execution Logic
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-white mt-1">Lưu Đồ Thuật Toán (System Flowchart)</h2>
+                <p class="text-xs text-slate-400">Luồng thực thi từ khởi động, xử lý ngắt, điều khiển thiết bị đến Cloud Webhook</p>
+            </div>
+
+            <!-- Mermaid Diagram Container -->
+            <div class="glass-panel p-4 rounded-2xl border border-slate-700/60 w-full max-w-5xl h-[480px] overflow-auto flex items-center justify-center relative">
+                <div class="mermaid text-xs w-full text-center" id="mermaidContainer">
+graph TD
+    Start(["1. Khởi động vi điều khiển ESP8266"]) --> Init["Khởi tạo GPIO, DHT11, LCD 1602, ngắt PIR"]
+    Init --> CheckWiFi{"Kết nối WiFi STA<br/>Timeout 15 giây?"}
+    CheckWiFi -- "Thành công" --> GotIP["Lấy IP Router & Chạy Web Server Port 80"]
+    CheckWiFi -- "Mất kết nối / Quá hạn" --> FallbackAP["Kích hoạt AP Fallback: 192.168.4.1<br/>SSID: SmartClassroom_WiFi"]
+    GotIP --> MainLoop["2. VÒNG LẶP CHÍNH loop()"]
+    FallbackAP --> MainLoop
+    
+    MainLoop --> SrvHandle["Xử lý yêu cầu Web: server.handleClient()"]
+    SrvHandle --> ReadPIR["Đọc cờ ngắt PIR & LDR: Tự động hóa Đèn học"]
+    ReadPIR --> Check2s{"Đủ chu kỳ 2000ms<br/>millis() timer?"}
+    
+    Check2s -- "Chưa đủ" --> UpdateLCD["Cập nhật LCD 1602 luân phiên mỗi 2s"]
+    Check2s -- "Đủ 2000ms" --> ReadSensors["Đọc cảm biến DHT11 & MQ135"]
+    
+    ReadSensors --> CheckTemp{"Nhiệt độ >= 30.0°C?"}
+    CheckTemp -- "Có" --> FanON["Bật Quạt Relay D0 + Bật Cảnh Báo Nhiệt"]
+    CheckTemp -- "Không & <= 29.5°C" --> FanOFF["Tắt Quạt Relay D0"]
+    
+    FanON --> CheckGas{"Nồng độ Gas >= 500 ADC?"}
+    FanOFF --> CheckGas
+    
+    CheckGas -- "Có" --> GasAlarm["Hú Còi Buzzer D8 + Chớp Warning LED D7"]
+    CheckGas -- "Không & <= 450 ADC" --> GasSafe["Tắt Còi Buzzer"]
+    
+    GasAlarm --> CheckMail{"Sự cố Leo thang &<br/>Cooldown > 5 phút?"}
+    GasSafe --> CheckMail
+    
+    CheckMail -- "Thỏa điều kiện" --> SendWebhook["Gửi Email HTML qua Google Apps Script Webhook"]
+    CheckMail -- "Đang trong Cooldown" --> UpdateLCD
+    SendWebhook --> UpdateLCD
+    UpdateLCD --> MainLoop
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S10: PROJECT PHOTOS GALLERY -->
+        <!-- ==================================================== -->
+        <div id="slide-10" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-6 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full">
+                    Physical Prototype & UI
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Hình Ảnh Mô Hình Thực Tế</h2>
+                <p class="text-sm text-slate-400 mt-1">Diorama phòng học thông minh hoàn thiện và giao diện điều khiển thực tế</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl w-full">
+                <!-- Photo 1: Diorama thực tế -->
+                <div class="glass-panel p-3 rounded-2xl border border-slate-700/60 hover:border-emerald-500/60 transition group flex flex-col">
+                    <div class="relative h-48 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img src="Smart Classroom System Diorama.png" alt="Diorama thực tế" class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                             onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';">
+                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950/90 text-emerald-300 border border-emerald-800">
+                            Khung Diorama
+                        </span>
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-bold text-sm text-white group-hover:text-emerald-400 transition">1. Mô Hình Lớp Học Thu Nhỏ</h4>
+                        <p class="text-xs text-slate-400 mt-1">Diorama tích hợp quạt làm mát trần, đèn bàn LED và cụm cảm biến thẩm mỹ.</p>
+                    </div>
+                </div>
+
+                <!-- Photo 2: Bo mạch trung tâm -->
+                <div class="glass-panel p-3 rounded-2xl border border-slate-700/60 hover:border-blue-500/60 transition group flex flex-col">
+                    <div class="relative h-48 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=600&q=80" alt="Bo mạch ESP8266" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono bg-blue-950/90 text-blue-300 border border-blue-800">
+                            Hardware Core
+                        </span>
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-bold text-sm text-white group-hover:text-blue-400 transition">2. Bo Mạch Vi Điều Khiển</h4>
+                        <p class="text-xs text-slate-400 mt-1">ESP8266 NodeMCU V3 kết nối cùng module Relay 5V và I2C LCD Display.</p>
+                    </div>
+                </div>
+
+                <!-- Photo 3: Web Dashboard -->
+                <div class="glass-panel p-3 rounded-2xl border border-slate-700/60 hover:border-cyan-500/60 transition group flex flex-col">
+                    <div class="relative h-48 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Web Dashboard" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950/90 text-cyan-300 border border-cyan-800">
+                            Web Port 80
+                        </span>
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-bold text-sm text-white group-hover:text-cyan-400 transition">3. Giao Diện Web Dashboard</h4>
+                        <p class="text-xs text-slate-400 mt-1">Trang điều khiển thiết bị & hiển thị đồ thị nhiệt độ, khí gas thời gian thực.</p>
+                    </div>
+                </div>
+
+                <!-- Photo 4: Cảnh báo Email HTML -->
+                <div class="glass-panel p-3 rounded-2xl border border-slate-700/60 hover:border-rose-500/60 transition group flex flex-col">
+                    <div class="relative h-48 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&w=600&q=80" alt="Email Alert" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono bg-rose-950/90 text-rose-300 border border-rose-800">
+                            Google Webhook
+                        </span>
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-bold text-sm text-white group-hover:text-rose-400 transition">4. Email HTML Cảnh Báo</h4>
+                        <p class="text-xs text-slate-400 mt-1">Giao diện email cảnh báo tự động gửi về điện thoại người quản lý khi có sự cố.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S11: DEMO & QR CODES -->
+        <!-- ==================================================== -->
+        <div id="slide-11" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-6 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-full">
+                    Live Demo & Verification
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Trình Diễn Demo & Kịch Bản Kiểm Thử</h2>
+                <p class="text-sm text-slate-400 mt-1">Quét mã QR xem video thực tế và chi tiết 4 test cases chứng minh năng lực</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-6xl w-full items-stretch">
+                <!-- Cột 1: 2 QR Codes (5 cols) -->
+                <div class="lg:col-span-5 glass-panel p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+                    <h3 class="text-sm font-bold font-mono text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-qrcode"></i> Quét Mã Truy Cập Trực Tiếp
+                    </h3>
+
+                    <div class="grid grid-cols-2 gap-4 my-auto">
+                        <!-- QR Code 1: YouTube Demo -->
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col items-center text-center">
+                            <div class="w-32 h-32 rounded-lg bg-white p-1.5 flex items-center justify-center shadow-lg">
+                                <img id="qrYoutube" src="" alt="YouTube QR" class="w-full h-full object-contain">
+                            </div>
+                            <span class="text-xs font-bold text-white mt-2.5 flex items-center gap-1.5">
+                                <i class="fa-brands fa-youtube text-rose-500"></i> Video Demo
+                            </span>
+                            <a id="linkYoutube" href="#" target="_blank" class="text-[10px] font-mono text-slate-400 hover:text-cyan-400 truncate max-w-[140px] mt-1">
+                                Xem trên YouTube &rarr;
+                            </a>
+                        </div>
+
+                        <!-- QR Code 2: GitHub Repository -->
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col items-center text-center">
+                            <div class="w-32 h-32 rounded-lg bg-white p-1.5 flex items-center justify-center shadow-lg">
+                                <img id="qrGithub" src="" alt="GitHub QR" class="w-full h-full object-contain">
+                            </div>
+                            <span class="text-xs font-bold text-white mt-2.5 flex items-center gap-1.5">
+                                <i class="fa-brands fa-github text-slate-200"></i> Source Code
+                            </span>
+                            <a id="linkGithub" href="#" target="_blank" class="text-[10px] font-mono text-slate-400 hover:text-cyan-400 truncate max-w-[140px] mt-1">
+                                GitHub Repository &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Config Hint -->
+                    <div class="mt-3 p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-[11px] font-mono text-slate-400">
+                        <i class="fa-solid fa-sliders text-cyan-400 mr-1"></i> Tự động tạo mã QR từ biến JavaScript <code class="text-cyan-300">CONFIG</code>
+                    </div>
+                </div>
+
+                <!-- Cột 2: 4 Test Cases (7 cols) -->
+                <div class="lg:col-span-7 glass-panel p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+                    <h3 class="text-sm font-bold font-mono text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-vial-circle-check"></i> 4 Kịch Bản Kiểm Thử (Test Cases)
+                    </h3>
+
+                    <div class="space-y-2.5">
+                        <!-- TC1 -->
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/50 transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-blue-500/20 text-[10px] flex items-center justify-center font-mono">1</span>
+                                    Cảnh Báo Nhiệt Độ Quá Ngưỡng (&ge; 30°C)
+                                </span>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">PASSED</span>
+                            </div>
+                            <p class="text-xs text-slate-300">
+                                Quạt tự động bật, LED đỏ chớp, Web báo động, Gửi Email. <strong>Tuyệt đối không hú còi</strong> để tránh quấy rầy lớp học kế bên (Noise-free).
+                            </p>
+                        </div>
+
+                        <!-- TC2 -->
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-rose-500/50 transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-rose-500/20 text-[10px] flex items-center justify-center font-mono">2</span>
+                                    Báo Động Rò Rỉ Khí Gas / Khói Khẩn Cấp (&ge; 500)
+                                </span>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">PASSED</span>
+                            </div>
+                            <p class="text-xs text-slate-300">
+                                Quạt bật thông gió tối đa, gửi Email khẩn cấp, <strong>Còi hú ầm ĩ liên tục</strong> vì sự cố đe dọa sinh mạng con người.
+                            </p>
+                        </div>
+
+                        <!-- TC3 -->
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-amber-500/20 text-[10px] flex items-center justify-center font-mono">3</span>
+                                    Tự Động Bật Đèn Học & Trễ Giữ Sáng (15s Hold)
+                                </span>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">PASSED</span>
+                            </div>
+                            <p class="text-xs text-slate-300">
+                                Che tối LDR và vẫy tay qua PIR &rarr; Đèn bật ngay. Khi rời đi, đèn sáng ráng thêm 15 giây rồi mới tắt, chống tắt đột ngột.
+                            </p>
+                        </div>
+
+                        <!-- TC4 -->
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-cyan-500/20 text-[10px] flex items-center justify-center font-mono">4</span>
+                                    Ghi Đè An Toàn (Safety Override) & AP Fallback
+                                </span>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">PASSED</span>
+                            </div>
+                            <p class="text-xs text-slate-300">
+                                Dù người dùng bấm Tắt quạt qua Web, nếu có Gas nguy hiểm thì Edge Logic tự động ép bật quạt. Mất WiFi tự phát Hotspot 192.168.4.1.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S12: CONCLUSION -->
+        <!-- ==================================================== -->
+        <div id="slide-12" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full">
+                    Achievements
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Tổng Kết Kết Quả Đạt Được</h2>
+                <p class="text-sm text-slate-400 mt-1">Những điểm sáng kiến trúc công nghiệp đã chứng minh tính hiệu quả</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full">
+                <!-- Point 1 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0 border border-blue-500/30">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-1">Kiến Trúc Non-Blocking Hoàn Toàn</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Toàn bộ code được xây dựng trên cơ chế điều phối <code class="text-cyan-300 font-mono">millis()</code>, loại bỏ hoàn toàn các hàm dừng thực thi <code class="text-rose-400 font-mono">delay()</code>. Hệ thống luôn phản hồi Web tức thì và đọc cảm biến mượt mà.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 border border-emerald-500/30">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-1">Phản Xạ Tức Thời với Hardware ISR</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Cảm biến chuyển động PIR gắn vào chân D5 với ngắt phần cứng độc lập. Vi điều khiển ghi nhận sự hiện diện của học sinh ngay lập tức (&lt; 1ms) ngay cả khi đang bận truyền dữ liệu qua WiFi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl shrink-0 border border-rose-500/30">
+                        <i class="fa-solid fa-envelope-shield"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-1">Hệ Thống Leo Thang & Cooldown 5 Phút</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Phân biệt rạch ròi sự cố tiếng ồn thấp (nhiệt độ) và khẩn cấp (cháy/gas). Cơ chế cờ nhớ và bộ đếm 300,000ms giúp chống tràn hộp thư mà vẫn đảm bảo an toàn tuyệt đối.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 border border-cyan-500/30">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white mb-1">Cơ Chế Dự Phòng Fail-Safe AP Fallback</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Hệ thống tự động phát hiện mất mạng Internet sau 15 giây và tự động mở Hotspot nội bộ <code class="text-cyan-300 font-mono">192.168.4.1</code>, đảm bảo quyền kiểm soát thiết bị không bao giờ bị gián đoạn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S13: FUTURE DEVELOPMENT -->
+        <!-- ==================================================== -->
+        <div id="slide-13" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 scale-95 pointer-events-none">
+            <div class="text-center mb-8 max-w-3xl">
+                <span class="text-xs font-mono uppercase tracking-wider text-purple-400 bg-purple-950/60 border border-purple-800/60 px-3 py-1 rounded-full">
+                    Roadmap & Upgrades
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-white mt-2">Định Hướng Phát Triển Tương Lai</h2>
+                <p class="text-sm text-slate-400 mt-1">3 hướng nghiên cứu nâng cấp hệ sinh thái Smart Classroom lên tầm quy mô lớn</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl w-full">
+                <!-- Upgrade 1: MQTT & Cloud -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 hover:border-purple-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition border border-purple-500/30">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <span class="text-xs font-mono text-purple-400 uppercase tracking-wider">Nâng cấp 01</span>
+                        <h3 class="text-lg font-bold text-white mt-1 mb-2.5">Giao Thức MQTT & Cloud IoT</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Tích hợp broker MQTT (HiveMQ / AWS IoT / ThingsBoard) thay thế HTTP Webhook để truyền nhận gói tin siêu nhẹ (Publish/Subscribe), mở rộng quản lý đồng thời hàng trăm phòng học xuyên Internet.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-purple-300">
+                        <i class="fa-solid fa-network-wired"></i> Kiến trúc Microservices quy mô lớn
+                    </div>
+                </div>
+
+                <!-- Upgrade 2: Camera AI -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 hover:border-cyan-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition border border-cyan-500/30">
+                            <i class="fa-solid fa-camera-viewfinder"></i>
+                        </div>
+                        <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">Nâng cấp 02</span>
+                        <h3 class="text-lg font-bold text-white mt-1 mb-2.5">Camera AI (ESP32-CAM)</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Bổ sung module ESP32-CAM chạy mô hình học sâu rút gọn (Edge TinyML) để đếm số lượng người thực tế trong phòng và tự động điểm danh khuôn mặt sinh viên, tự động điều chỉnh tốc độ quạt theo mật độ người.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-cyan-300">
+                        <i class="fa-solid fa-brain"></i> Computer Vision tại biên
+                    </div>
+                </div>
+
+                <!-- Upgrade 3: Power Meter PZEM-004T -->
+                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 hover:border-emerald-500/60 transition group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition border border-emerald-500/30">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">Nâng cấp 03</span>
+                        <h3 class="text-lg font-bold text-white mt-1 mb-2.5">Giám Sát Điện Năng PZEM-004T</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Lắp đặt cảm biến biến dòng PZEM-004T đo trực tiếp điện áp (V), dòng điện (A), công suất tiêu thụ (W) và tổng điện năng (kWh). Tự động tính tiền điện theo thời gian thực và phát hiện rò điện quá tải.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-emerald-300">
+                        <i class="fa-solid fa-chart-pie"></i> Tiết kiệm năng lượng bền vững (ESG)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- S14: THANK YOU & Q&A -->
+        <!-- ==================================================== -->
+        <div id="slide-14" class="slide-transition absolute inset-0 p-6 flex flex-col justify-center items-center text-center opacity-0 scale-95 pointer-events-none">
+            <!-- Background Glow -->
+            <div class="absolute w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+            
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mb-4">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span> Presentation Completed
+            </span>
+
+            <h1 class="text-4xl sm:text-6xl font-black font-display text-white mb-3">
+                XIN CHÂN THÀNH CẢM ƠN!
+            </h1>
+
+            <p class="text-lg sm:text-xl text-cyan-300 font-medium max-w-2xl mb-8">
+                Hội đồng Đánh giá & Quý Thầy Cô đã dành thời gian lắng nghe phần trình bày của nhóm
+            </p>
+
+            <!-- Q&A Highlight Card -->
+            <div class="glass-panel-glow p-8 rounded-3xl max-w-2xl w-full text-center relative overflow-hidden shadow-2xl mb-8">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white text-2xl mx-auto mb-4 shadow-lg shadow-cyan-500/30">
+                    <i class="fa-solid fa-comments-question-check"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-white mb-2 font-display">Phiên Hỏi & Đáp (Q&A Session)</h3>
+                <p class="text-sm text-slate-300 max-w-md mx-auto">
+                    Kính mời Quý Thầy Cô trong Hội đồng phản biện đặt câu hỏi và đóng góp ý kiến để đề án được hoàn thiện hơn!
+                </p>
+
+                <div class="flex items-center justify-center gap-3 mt-6 pt-5 border-t border-slate-800 text-xs font-mono text-slate-400">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-code text-blue-400"></i> ESP8266 Core</span>
+                    <span>&bull;</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-cloud text-cyan-400"></i> Google Webhook</span>
+                    <span>&bull;</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-check text-emerald-400"></i> Edge Fail-Safe</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="goToSlide(1)" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white hover:border-slate-500 transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-rotate-left"></i> Về Slide Đầu (Home)
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- ======================================================== -->
+    <!-- FLOATING BOTTOM CONTROL HUD -->
+    <!-- ======================================================== -->
+    <footer class="h-16 px-6 flex items-center justify-between border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-md shrink-0 relative z-40">
+        <!-- Key Navigation Hints -->
+        <div class="hidden md:flex items-center gap-2 text-xs text-slate-400 font-mono">
+            <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">&larr;</span>
+            <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">&rarr;</span>
+            <span>hoặc</span>
+            <span class="px-2.5 py-0.5 rounded bg-slate-900 border border-slate-800">Space</span>
+            <span>để chuyển slide</span>
+        </div>
+
+        <!-- Center: Slide Navigation Buttons -->
+        <div class="flex items-center gap-3 mx-auto md:mx-0">
+            <button onclick="prevSlide()" title="Slide trước (Trái)" class="h-9 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white transition flex items-center gap-2 text-xs font-medium active:scale-95">
+                <i class="fa-solid fa-chevron-left text-[10px]"></i> Trước
+            </button>
+
+            <!-- Slide Selection Dropdown -->
+            <select id="slideSelect" onchange="goToSlide(parseInt(this.value))" class="h-9 px-3 rounded-xl bg-slate-900 border border-slate-700/80 text-xs font-mono text-cyan-400 focus:outline-none focus:border-cyan-500 cursor-pointer">
+                <option value="1">S1: Tiêu đề & Giới thiệu</option>
+                <option value="2">S2: Thành viên nhóm</option>
+                <option value="3">S3: Bối cảnh & Vấn đề</option>
+                <option value="4">S4: Giới thiệu giải pháp</option>
+                <option value="5">S5: Mục lục đề tài</option>
+                <option value="6">S6: Cảm biến & Vai trò</option>
+                <option value="7">S7: Sơ đồ Fritzing & Pinout</option>
+                <option value="8">S8: Sơ đồ khối (Block Diagram)</option>
+                <option value="9">S9: Lưu đồ thuật toán</option>
+                <option value="10">S10: Hình ảnh thực tế</option>
+                <option value="11">S11: Live Demo & Test Cases</option>
+                <option value="12">S12: Kết quả đạt được</option>
+                <option value="13">S13: Hướng phát triển</option>
+                <option value="14">S14: Cảm ơn & Q&A</option>
+            </select>
+
+            <button onclick="nextSlide()" title="Slide kế (Phải/Space)" class="h-9 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 border border-blue-400 text-white transition flex items-center gap-2 text-xs font-medium shadow-lg shadow-blue-600/30 active:scale-95">
+                Tiếp <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+        </div>
+
+        <!-- Slide Progress Percentage -->
+        <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-400">
+            <span>Tiến độ:</span>
+            <span id="progressPercent" class="text-cyan-400 font-bold">7%</span>
+        </div>
+    </footer>
+
+    <!-- ======================================================== -->
+    <!-- BOTTOM PROGRESS BAR INDICATOR -->
+    <!-- ======================================================== -->
+    <div class="fixed bottom-0 left-0 right-0 h-1 bg-slate-900 z-50">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 transition-all duration-300" style="width: 7.14%;"></div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- SLIDE OVERVIEW MODAL (QUICK JUMP) -->
+    <!-- ======================================================== -->
+    <div id="overviewModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-6">
+        <div class="glass-panel p-6 rounded-3xl border border-slate-700 max-w-4xl w-full max-h-[85vh] flex flex-col shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-grid-2 text-cyan-400"></i>
+                    <h3 class="font-bold text-lg text-white font-display">Danh Sách Toàn Bộ 14 Slides</h3>
+                </div>
+                <button onclick="toggleOverviewModal()" class="text-slate-400 hover:text-white p-2 text-sm">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Slides Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 py-4 overflow-y-auto pr-1">
+                <button onclick="goToSlide(1); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 01</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Tiêu đề dự án</span>
+                </button>
+                <button onclick="goToSlide(2); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 02</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Thành viên nhóm</span>
+                </button>
+                <button onclick="goToSlide(3); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 03</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Bối cảnh & Vấn đề</span>
+                </button>
+                <button onclick="goToSlide(4); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 04</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Giới thiệu giải pháp</span>
+                </button>
+                <button onclick="goToSlide(5); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 05</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Mục lục đề tài</span>
+                </button>
+                <button onclick="goToSlide(6); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 06</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Cảm biến & Vai trò</span>
+                </button>
+                <button onclick="goToSlide(7); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 07</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Sơ đồ Fritzing & Pinout</span>
+                </button>
+                <button onclick="goToSlide(8); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 08</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Sơ đồ khối kỹ thuật</span>
+                </button>
+                <button onclick="goToSlide(9); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 09</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Lưu đồ thuật toán</span>
+                </button>
+                <button onclick="goToSlide(10); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 10</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Hình ảnh thực tế</span>
+                </button>
+                <button onclick="goToSlide(11); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 11</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Live Demo & Test Cases</span>
+                </button>
+                <button onclick="goToSlide(12); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 12</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Kết quả đạt được</span>
+                </button>
+                <button onclick="goToSlide(13); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 13</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Định hướng nâng cấp</span>
+                </button>
+                <button onclick="goToSlide(14); toggleOverviewModal();" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-left transition group">
+                    <span class="text-xs font-mono text-cyan-400 font-bold block mb-1">Slide 14</span>
+                    <span class="text-xs font-semibold text-slate-200 group-hover:text-cyan-300">Cảm ơn & Q&A</span>
+                </button>
+            </div>
+            
+            <div class="pt-3 border-t border-slate-800 text-center text-xs text-slate-400 font-mono">
+                Bấm phím <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700">M</kbd> hoặc <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700">ESC</kbd> để đóng cửa sổ
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT CONTROLLER -->
+    <!-- ======================================================== -->
+    <script>
+        // ==========================================
+        // 1. CONFIGURATION & URLS
+        // Thay đổi đường dẫn YouTube và GitHub tại đây:
+        // ==========================================
+        const CONFIG = {
+            YOUTUBE_URL: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Thay bằng link Video Demo thực tế của bạn
+            GITHUB_URL: "https://github.com/smartclassroom-iot/esp8266-core" // Thay bằng link GitHub repo của bạn
+        };
+
+        // Slide Titles Mapping for the Header
+        const SLIDE_TITLES = [
+            "SMART CLASSROOM IoT - Trang Tiêu Đề",
+            "Đội Ngũ Phát Triển Đề Án",
+            "Bối Cảnh & Vấn Đề Cần Giải Quyết",
+            "Tổng Quan Tính Năng Sản Phẩm",
+            "Mục Lục & Cấu Trúc Nội Dung",
+            "Thông Số Kỹ Thuật 4 Cảm Biến",
+            "Sơ Đồ Đấu Nối Fritzing & Pinout",
+            "Sơ Đồ Khối Kỹ Thuật (Block Diagram)",
+            "Lưu Đồ Thuật Toán Hệ Thống",
+            "Hình Ảnh Thực Tế & Giao Diện",
+            "Trình Diễn Demo & 4 Test Cases",
+            "Tổng Kết Các Kết Quả Đạt Được",
+            "Định Hướng Phát Triển Tương Lai",
+            "Phiên Hỏi Đáp (Q&A Session)"
+        ];
+
+        let currentSlide = 1;
+        const totalSlides = 14;
+        let mermaidRendered = false;
+
+        // ==========================================
+        // 2. SLIDE NAVIGATION FUNCTIONS
+        // ==========================================
+        function updateSlideDisplay() {
+            // Update individual slide visibility and transition classes
+            for (let i = 1; i <= totalSlides; i++) {
+                const el = document.getElementById(`slide-${i}`);
+                if (!el) continue;
+
+                if (i === currentSlide) {
+                    el.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                    el.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                } else {
+                    el.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    el.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                }
+            }
+
+            // Update Header & Footer Indicators
+            const paddedCurrent = String(currentSlide).padStart(2, '0');
+            const paddedTotal = String(totalSlides).padStart(2, '0');
+            document.getElementById('slideCounterBadge').innerText = `${paddedCurrent} / ${paddedTotal}`;
+            document.getElementById('headerSlideTitle').innerText = SLIDE_TITLES[currentSlide - 1];
+            
+            // Update Progress Bar
+            const percent = Math.round((currentSlide / totalSlides) * 100);
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressPercent').innerText = `${percent}%`;
+
+            // Update Select dropdown
+            document.getElementById('slideSelect').value = currentSlide;
+
+            // Trigger Mermaid render if on Slide 9
+            if (currentSlide === 9 && !mermaidRendered) {
+                renderMermaidFlowchart();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        function goToSlide(slideNum) {
+            if (slideNum >= 1 && slideNum <= totalSlides) {
+                currentSlide = slideNum;
+                updateSlideDisplay();
+            }
+        }
+
+        // ==========================================
+        // 3. FULLSCREEN & MODAL CONTROLLERS
+        // ==========================================
+        function toggleFullScreen() {
+            const icon = document.getElementById('fullscreenIcon');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    icon.classList.remove('fa-expand');
+                    icon.classList.add('fa-compress');
+                }).catch(err => console.log(err));
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().then(() => {
+                        icon.classList.remove('fa-compress');
+                        icon.classList.add('fa-expand');
+                    });
+                }
+            }
+        }
+
+        function toggleOverviewModal() {
+            const modal = document.getElementById('overviewModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // ==========================================
+        // 4. KEYBOARD SHORTCUTS
+        // ==========================================
+        document.addEventListener('keydown', (e) => {
+            // Modal active check
+            const modal = document.getElementById('overviewModal');
+            if (!modal.classList.contains('hidden') && e.key === 'Escape') {
+                toggleOverviewModal();
+                return;
+            }
+
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'Space':
+                case 'PageDown':
+                case 'l':
+                case 'n':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'PageUp':
+                case 'h':
+                case 'p':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    goToSlide(1);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    goToSlide(totalSlides);
+                    break;
+                case 'f':
+                case 'F':
+                    e.preventDefault();
+                    toggleFullScreen();
+                    break;
+                case 'm':
+                case 'M':
+                case 'o':
+                case 'O':
+                    e.preventDefault();
+                    toggleOverviewModal();
+                    break;
+            }
+        });
+
+        // ==========================================
+        // 5. TOUCH SWIPE SUPPORT FOR MOBILE / TABLETS
+        // ==========================================
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 60) nextSlide();
+            if (touchEndX > touchStartX + 60) prevSlide();
+        }
+
+        // ==========================================
+        // 6. INITIALIZE MERMAID & DYNAMIC QR CODES
+        // ==========================================
+        function initQRCodes() {
+            const qrYoutube = document.getElementById('qrYoutube');
+            const linkYoutube = document.getElementById('linkYoutube');
+            const qrGithub = document.getElementById('qrGithub');
+            const linkGithub = document.getElementById('linkGithub');
+
+            if (qrYoutube && CONFIG.YOUTUBE_URL) {
+                qrYoutube.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(CONFIG.YOUTUBE_URL)}`;
+                linkYoutube.href = CONFIG.YOUTUBE_URL;
+                linkYoutube.innerText = CONFIG.YOUTUBE_URL;
+            }
+
+            if (qrGithub && CONFIG.GITHUB_URL) {
+                qrGithub.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(CONFIG.GITHUB_URL)}`;
+                linkGithub.href = CONFIG.GITHUB_URL;
+                linkGithub.innerText = CONFIG.GITHUB_URL;
+            }
+        }
+
+        function renderMermaidFlowchart() {
+            try {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'dark',
+                    themeVariables: {
+                        darkMode: true,
+                        background: '#0b0f19',
+                        primaryColor: '#1e293b',
+                        primaryTextColor: '#f8fafc',
+                        primaryBorderColor: '#38bdf8',
+                        lineColor: '#00d2ff',
+                        secondaryColor: '#0f172a',
+                        tertiaryColor: '#1e293b',
+                        fontSize: '12px'
+                    }
+                });
+                mermaid.run({
+                    nodes: [document.getElementById('mermaidContainer')]
+                });
+                mermaidRendered = true;
+            } catch (err) {
+                console.error("Mermaid render error:", err);
+            }
+        }
+
+        // Bootstrap on DOM Ready
+        document.addEventListener('DOMContentLoaded', () => {
+            initQRCodes();
+            updateSlideDisplay();
+        });
+    </script>
+</body>
+</html>
